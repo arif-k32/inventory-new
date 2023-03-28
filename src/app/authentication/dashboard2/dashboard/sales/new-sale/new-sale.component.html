@@ -1,0 +1,183 @@
+<div class="background-image" style="height: 720px">
+  <a
+    routerLink="../sales"
+    style="float: right"
+    class="mb-2 mt-2 py-1 px-1 mr-1 rounded-md border border-transparent font-semibold bg-indigo-700 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+  >
+    back
+  </a>
+  <div style="display: flex; flex-direction: row">
+    <!-- ///////////////////////////left part ///////////////////////////////////////// -->
+    <div
+      style="
+        border-right: 2px solid black;
+        width: 40%;
+        height: 720px;
+        background-color: rgba(182, 221, 230, 0.669);
+      "
+    >
+      <div
+        class="flex rounded-md shadow-sm"
+        [formGroup]="searchClients"
+        *ngIf="searchingClients"
+      >
+        <button
+          type="button"
+          class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-l-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+        >
+          <svg
+            class="h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </button>
+        <input
+          formControlName="searchInput"
+          placeholder="search clients"
+          type="text"
+          id="hs-leading-button-add-on-with-icon"
+          name="hs-leading-button-add-on-with-icon"
+          class="py-3 px-4 block border-gray-200 shadow-sm rounded-r-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+        />
+      </div>
+
+      <div
+        class="flex rounded-md shadow-sm"
+        [formGroup]="searchProducts"
+        *ngIf="!searchingClients"
+      >
+        <button
+          type="button"
+          class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-l-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+        >
+          <svg
+            class="h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </button>
+        <input
+          formControlName="searchInput"
+          placeholder="search Products"
+          type="text"
+          id="hs-leading-button-add-on-with-icon"
+          name="hs-leading-button-add-on-with-icon"
+          class="py-3 px-4 block border-gray-200 shadow-sm rounded-r-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+        />
+      </div>
+      <table class="divide-y min-w-full" *ngIf="searchingClients">
+        <tbody *ngFor="let user of searchClientsResult" class="bg-slate-400">
+          <th>ID: {{ user.id }}</th>
+          <th>Name: {{ user.first_name + " " + user.last_name }}</th>
+          <th>Address: {{ user.address }}</th>
+          <th class="py-1">
+            <button
+              (click)="addClient(user)"
+              type="button"
+              class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+            >
+              Add
+            </button>
+          </th>
+        </tbody>
+      </table>
+      <table class="divide-y min-w-full" *ngIf="!searchingClients">
+        <tbody *ngFor="let product of searchProdutsResult" class="bg-slate-400">
+          <th>Name: {{ product.name }}</th>
+          <th>Stock: {{ product.stock }}</th>
+          <th>Quantity:<input type="number" min="1" max="{{product.stock}}" #quantity /></th>
+
+          <th class="py-1">
+            <button
+              (click)="addProduct(product, quantity.value)"
+              type="button"
+              class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+            >
+              Add
+            </button>
+          </th>
+        </tbody>
+      </table>
+    </div>
+    <!-- ///////// right part ////////////////////////////////// -->
+    <div style="width: 60%">
+      <div
+        class="bg-blue-300 text-white px-3 py-3 mt-9"
+        style="text-align: center"
+        *ngIf="selectedClient"
+      >
+        <p>Client Details</p>
+      </div>
+      <table class="divide-y min-w-full" *ngIf="selectedClient">
+        <tbody class="bg-slate-400">
+          <th>ID: {{ selectedClient?.id }}</th>
+          <th>
+            Name:
+            {{ selectedClient?.first_name + " " + selectedClient?.last_name }}
+          </th>
+          <th>Address: {{ selectedClient?.address }}</th>
+          <th class="py-1">
+            <button
+              (click)="removeSelectedClient()"
+              type="button"
+              class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+            >
+              Remove
+            </button>
+          </th>
+        </tbody>
+      </table>
+      <div
+        class="bg-blue-300 text-white px-3 py-3 mt-1"
+        style="text-align: center"
+        *ngIf="selectedProducts.controls[0]"
+      >
+        <p>Orders</p>
+      </div>
+      <table
+        class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+        *ngIf="selectedProducts.controls[0]"
+      >
+        <tbody class="bg-slate-400">
+          <tr *ngFor="let product of selectedProducts.controls">
+            <th>ID: {{ product?.value.id }}</th>
+            <th>{{ product?.value.name }}</th>
+            <th>QTY: {{ product?.value.quantity }}</th>
+            <th class="py-1">
+              <button
+                (click)="removeSelectedProducts(product?.value.id)"
+                type="button"
+                class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+              >
+                Remove
+              </button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center" *ngIf="selectedProducts.controls[0]">
+        <button
+          (click)="confirmSale()"
+          type="button"
+          class="py-2 mr-2 mt-1 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

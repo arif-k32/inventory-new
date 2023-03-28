@@ -1,0 +1,78 @@
+<a
+    routerLink="../../sales"
+    style="float: right;"
+    class="ml-2 mt-2 mr-1 py-1 px-1 rounded-md border border-transparent font-semibold bg-indigo-100 text-black hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 "
+  >
+    back
+</a>
+<div class="bg-blue-700 text-white px-3 py-3" style="text-align: center;"><p>Client Details</p></div>
+
+    <table class="mt-1 min-w-full divide-y divide-gray-200 dark:divide-gray-700 " *ngIf="sales">
+        <tbody>
+          <tr>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
+            >
+              ID:{{ sales.id }}
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
+            >
+              NAME: {{
+                sales.client.first_name +
+                  " " +
+                  sales.client.last_name
+              }}
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
+            >
+              ADDRESS: {{ sales.client.address }}
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
+            >
+              CREATED_AT: {{ sales.created_at }}
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+<div class="bg-blue-300 text-white px-3 py-3" style="text-align: center;" *ngIf="sales"><p>Orders</p></div>
+
+<table class=" min-w-full divide-y divide-gray-200 dark:divide-gray-700 " *ngIf="sales">
+    <tbody>
+      <tr *ngFor="let order of sales.items">
+        <th scope="col"
+        class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100 ">
+            
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100 "
+        >
+          PRODUCT_ID:{{ order.product_id }}
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100"
+        >
+          PRICE: {{order.price}}
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100"
+        >
+          QUANTITY: {{order.quantity}}
+        </th>
+        
+      </tr>
+    </tbody>
+  </table>

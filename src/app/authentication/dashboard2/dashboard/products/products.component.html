@@ -1,0 +1,177 @@
+<div class="background-image">
+  <br />
+
+  <div
+    style="display: flex; flex-direction: row; justify-content: space-between"
+  >
+    <div>
+      <select
+        (change)="setfiltersActive($event)"
+        class="py-3 px-4 pr-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+      >
+        <option value="">All</option>
+        <option value="true">Active Products</option>
+        <option value="false">Inactive Products</option>
+      </select>
+    </div>
+
+    <div>
+      <select
+        (change)="setfiltersStock($event)"
+        class="py-3 px-4 pr-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+      >
+        <option value="">All Stock</option>
+        <option value="1">In Stock</option>
+        <option value="0">Out of Stock</option>
+      </select>
+    </div>
+    <div>
+      <button
+        (click)="getdata()"
+        class="mx-auto mt-2 py-1 px-1 rounded-md border border-transparent font-semibold bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+      >
+        Reload Products
+      </button>
+    </div>
+
+    <div>
+      <button
+        (click)="showAddProduct()"
+        class="mx-auto mt-2 py-1 px-1 rounded-md border border-transparent font-semibold bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+      >
+        Add Product
+      </button>
+    </div>
+  </div>
+  <hr />
+  <br />
+
+  <app-addproduct *ngIf="addProduct"></app-addproduct>
+
+  <app-pagination
+    [numberOfPages]="numberOfPages"
+    [currentPage]="currentPage"
+    (paginationChange)="pagination($event)"
+  ></app-pagination>
+
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="overflow-hidden">
+          <form [formGroup]="productsForm">
+            <table
+              class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-black uppercase bg-blue-300"
+                  >
+                    Disable/Enable
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-black uppercase bg-blue-300"
+                  >
+                    Id
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-black uppercase bg-blue-300"
+                  >
+                    Product Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium uppercase bg-blue-300"
+                  >
+                    Price
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium uppercase bg-blue-300"
+                  >
+                    Stock
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium uppercase bg-blue-300"
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr
+                  *ngFor="
+                    let product of productsObservable$
+                      | pagination : currentPage : pageSize
+                      | async
+                  "
+                  [formGroupName]="product.id"
+                  [ngClass]="{
+                    rowinactive:
+                      !productsForm.controls[product.id].get('switch')?.value
+                  }"
+                >
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <input
+                      (change)="switch(product, $event)"
+                      formControlName="switch"
+                      type="checkbox"
+                      id="hs-basic-usage"
+                      class="relative w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-blue-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent focus:border-blue-600 focus:ring-blue-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-blue-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-blue-200"
+                    />
+                  </td>
+
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    {{ product.id }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    {{ product.name }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <input
+                      (change)="setPriceInputFieldOnChange(product, $event)"
+                      formControlName="price"
+                      type="text"
+                    />
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <input formControlName="stock" type="number" />
+                  </td>
+
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+                  >
+                    <button
+                      [disabled]="updateEnableOrDisable(product)"
+                      (click)="updateProduct(product)"
+                      type="button"
+                      class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    >
+                      Update
+                    </button>
+                    <button
+                      [disabled]="
+                        !productsForm.controls[product.id].value.switch
+                      "
+                      (click)="delete(product.id)"
+                      type="button"
+                      class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <br />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

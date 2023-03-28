@@ -1,0 +1,46 @@
+<nav class="flex items-center justify-end space-x-2">
+  <div>
+    <label
+      >show
+      <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+        <option value="3">3</option>
+        <option value="5">5</option></select
+      >entries
+    </label>
+  </div>
+  <h2 class="bg-blue-300">|</h2>
+  <div (click)="button($event)">
+    <button
+      *ngIf="currentPage != 1"
+      class="text-black hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md"
+    >
+      Previous
+    </button>
+    <button
+      *ngIf="currentPage != 1"
+      type="button"
+      class="text-black hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
+    >
+      {{ currentPage - 1 }}
+    </button>
+    <button
+      type="button"
+      style="background-color: rgb(163, 163, 182)"
+      class="text-black hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full active"
+    >
+      {{ currentPage }}
+    </button>
+    <button
+      *ngIf="currentPage != numberOfPages"
+      class="text-black hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
+    >
+      {{ currentPage + 1 }}
+    </button>
+    <button
+      *ngIf="currentPage != numberOfPages"
+      class="text-black hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md"
+    >
+      Next
+    </button>
+  </div>
+</nav>
