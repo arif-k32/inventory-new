@@ -19,7 +19,7 @@ export class PaginationComponent implements OnChanges {
   }>();
   @Input() currentPage!: number;
   @Input() numberOfPages!: number;
-  pageSize = '3';
+  @Input() pageSize!:string;
   hide = true;
   button(event: any) {
     const button = event.target.innerText;

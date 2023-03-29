@@ -53,7 +53,7 @@ export class ProductsComponent {
   stock = 1;
 
   currentPage = 1;
-  pageSize: number = 3;
+  pageSize: number = 5;
   numberOfProducts!: number; //length of products array
   numberOfPages!: number; // in pagination
 

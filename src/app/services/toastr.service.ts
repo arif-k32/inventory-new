@@ -13,7 +13,7 @@ export class Toastr {
           timeOut: 3000,
           progressBar: true,
           progressAnimation: 'decreasing',
-          positionClass: 'toast-bottom-right',
+          positionClass: 'toast-top-right',
           closeButton: true,
         });
         break;
@@ -22,7 +22,7 @@ export class Toastr {
           timeOut: 3000,
           progressBar: true,
           progressAnimation: 'decreasing',
-          positionClass: 'toast-bottom-right',
+          positionClass: 'toast-top-right',
           closeButton: true,
         });
         break;

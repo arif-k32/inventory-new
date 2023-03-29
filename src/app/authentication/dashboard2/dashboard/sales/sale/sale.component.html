@@ -36,7 +36,13 @@
               scope="col"
               class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
             >
-              CREATED_AT: {{ sales.created_at }}
+              CREATED_AT: {{ sales.created_at | date }}
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
+            >
+              TOTAL: {{ sales.total | currency }}
             </th>
           </tr>
         </tbody>
@@ -48,29 +54,40 @@
 <div class="bg-blue-300 text-white px-3 py-3" style="text-align: center;" *ngIf="sales"><p>Orders</p></div>
 
 <table class=" min-w-full divide-y divide-gray-200 dark:divide-gray-700 " *ngIf="sales">
+    <thead>
+      <tr class="bg-blue-200">
+        <th>ID</th>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>QUANTITY</th>
+      </tr>
+    </thead>
     <tbody>
       <tr *ngFor="let order of sales.items">
-        <th scope="col"
-        class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100 ">
-            
+        
+        <th
+          scope="col"
+          class="px-6 py-3  text-xs font-medium text-black  bg-blue-100 "
+        >
+          {{ order.product_id }}
         </th>
         <th
           scope="col"
-          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100 "
+          class="px-6 py-3  text-xs font-medium text-black  bg-blue-100 "
         >
-          PRODUCT_ID:{{ order.product_id }}
+          {{ order.product_name }}
         </th>
         <th
           scope="col"
-          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100"
+          class="px-6 py-3  text-xs font-medium text-black  bg-blue-100"
         >
-          PRICE: {{order.price}}
+          {{order.price | currency}}
         </th>
         <th
           scope="col"
-          class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-100"
+          class="px-6 py-3  text-xs font-medium text-black  bg-blue-100"
         >
-          QUANTITY: {{order.quantity}}
+          {{order.quantity}}
         </th>
         
       </tr>

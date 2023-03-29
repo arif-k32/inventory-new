@@ -15,7 +15,7 @@ export class ClientsComponent implements OnInit {
   currentPage = 1;
   numberOfPages!: number;
   numberOfClients!: number;
-  pageSize = 3;
+  pageSize = 5;
 
   editMode = false;
   updateClientForm = new FormGroup({
