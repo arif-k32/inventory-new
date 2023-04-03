@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
@@ -36,7 +37,9 @@ export class ClientsComponent implements OnInit {
   constructor(
     private http: HttpServiceService,
     private toastr: Toastr,
-    private addClientSubject: AddDataResponseService
+    private addClientSubject: AddDataResponseService,
+    private router:Router,
+    private route:ActivatedRoute
   ) {}
 
   showAddClient() {
@@ -108,5 +111,11 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.getClients();
+    this.route.queryParams.subscribe((params:{[source:string]:string})=>{
+      if(params['source']){
+        this.addClient=true;
+      }
+    })
+      
   }
 }

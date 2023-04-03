@@ -18,7 +18,6 @@ export class SalesComponent implements OnInit{
   numberOfPages!: number;
   pageSize=5;
 
-
   constructor(private http:HttpServiceService){}
 
   pagination(updatedPagination: { currentPage: number; pageSize: number }) {
@@ -37,6 +36,7 @@ export class SalesComponent implements OnInit{
 
   ngOnInit(){
     this.getSales();
+
   }
 
   

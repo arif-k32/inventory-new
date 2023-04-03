@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 
@@ -20,17 +21,23 @@ export class AddnewclientComponent {
   });
   constructor(
     private http: HttpServiceService,
-    private addClientSubject: AddDataResponseService
+    private addClientSubject: AddDataResponseService,
+    private route:ActivatedRoute,
+    private router:Router
   ) {}
 
   addClient() {
-    if (this.newClientForm.valid) {
-      this.http
-        .registerClient(this.newClientForm.value)
-        .subscribe((resp: any) => {
-          this.newClientForm.reset();
-          this.addClientSubject.onAddClient('success');
-        });
-    } else this.addClientSubject.onAddClient('error');
+    // if (this.newClientForm.valid) {
+      // this.http
+      //   .registerClient(this.newClientForm.value)
+      //   .subscribe((resp: any) => {
+      //     this.newClientForm.reset();
+      //     this.addClientSubject.onAddClient('success');
+      //   });
+      this.route.queryParams.subscribe((params:{[source:string]:string})=>{
+        if(params['source'])
+          this.router.navigate(['/dashboard/newsale'])
+      })
+    // } else this.addClientSubject.onAddClient('error');
   }
 }
