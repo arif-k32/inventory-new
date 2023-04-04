@@ -36,7 +36,7 @@ export class AddnewclientComponent {
       //   });
       this.route.queryParams.subscribe((params:{[source:string]:string})=>{
         if(params['source'])
-          this.router.navigate(['/dashboard/newsale'])
+          this.router.navigate(['/dashboard/sales/newsale'])
       })
     // } else this.addClientSubject.onAddClient('error');
   }

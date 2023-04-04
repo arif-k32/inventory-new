@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 export class HttpServiceService {
   url: string = 'https://api-sales-app.josetovar.dev';
   constructor(private http: HttpClient, private router: Router) {}
-  getSingleProduct(id: number) {
-    return this.http.get(`${this.url}/products/${id}`);
+  ////////////////// auth ///////////////////////////
+  auth(){
+    return this.http.post(`${this.url}/auth`,null)
   }
 
-  deleteProduct(id: number) {
-    return this.http.delete(`${this.url}/products/${id}`);
-  }
+  /////////////////// users  ////////////////////////
+
   login(loginform: FormGroup) {
     return this.http.post(`${this.url}/login`, loginform.value);
   }
@@ -23,6 +23,16 @@ export class HttpServiceService {
   registerUser(registerform: FormGroup) {
     return this.http.post(`${this.url}/users`, registerform.value);
   }
+
+  /////////////////// products  ////////////////////////
+  getSingleProduct(id: number) {
+    return this.http.get(`${this.url}/products/${id}`);
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.url}/products/${id}`);
+  }
+  
   updateProduct(id: string, details: any) {
     return this.http.put(`${this.url}/products`, details);
   }
@@ -38,7 +48,7 @@ export class HttpServiceService {
     return this.http.post(`${this.url}/products`, product);
   }
 
-  ///////////////////////////////////////////////////////////////////////
+  /////////////////////////  clients   /////////////////////////////////
 
   getAllClients() {
     return this.http.get(`${this.url}/clients`);
@@ -52,7 +62,7 @@ export class HttpServiceService {
   deleteClient(clientId: number) {
     return this.http.delete(`${this.url}/clients/${clientId}`);
   }
-  //////////////////////////////////////////////////////////////
+  /////////////////////////  sales  ////////////////////////////
 
   getAllSales(){
     return this.http.get(`${this.url}/sales`)
@@ -61,6 +71,20 @@ export class HttpServiceService {
     return this.http.get(`${this.url}/sales/${sale_id}`)
   }
   createSale(sale:any){
-    return this.http.post(`${this.url}/sales`, sale)
+    return this.http.post(`${this.url}/sales`, sale);
   }
+  /////////////////  quick sales /////////////////////////////
+
+  getAllQuickSales(){
+    return this.http.get(`${this.url}/quick-sales`);
+  }
+
+  createQuickSale(quick_sale:any){
+    return this.http.post(`${this.url}/quick-sales`,quick_sale);
+  }  
+
+  getQuickSaleById(quickSaleId:number){
+    return this.http.get(`${this.url}/quick-sales/${quickSaleId}`)
+  }
+
 }

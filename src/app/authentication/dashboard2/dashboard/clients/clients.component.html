@@ -1,4 +1,4 @@
-<div class="background-image">
+<div >
   
 
   <div style="display: flex;justify-content: space-between;">
@@ -9,13 +9,7 @@
     New Client +
   </button>
 
-  <app-pagination
-    class="m-2"
-    [numberOfPages]="numberOfPages"
-    [currentPage]="currentPage"
-    [pageSize]="pageSize.toString()"
-    (paginationChange)="pagination($event)"
-  ></app-pagination>
+  
 
   </div>
 
@@ -276,6 +270,13 @@
       </tr>
     </tbody>
   </table>
-  <br />
-  <br />
+
+  <app-pagination
+    class="m-2"
+    [numberOfPages]="numberOfPages"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize.toString()"
+    (paginationChange)="pagination($event)"
+  ></app-pagination>
+  
 </div>

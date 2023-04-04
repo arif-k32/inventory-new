@@ -13,6 +13,10 @@ import { ProductsComponent } from './dashboard2/dashboard/products/products.comp
 import { SalesComponent } from './dashboard2/dashboard/sales/sales.component';
 import { SaleComponent } from './dashboard2/dashboard/sales/sale/sale.component';
 import { NewSaleComponent } from './dashboard2/dashboard/sales/new-sale/new-sale.component';
+import { OverviewComponent } from './dashboard2/dashboard/overview/overview.component';
+import { QuicksaleComponent } from './dashboard2/dashboard/quicksale/quicksale.component';
+import { DetailsComponent } from './dashboard2/dashboard/quicksale/details/details.component';
+import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { NewSaleComponent } from './dashboard2/dashboard/sales/new-sale/new-sale
     SalesComponent,
     SaleComponent,
     NewSaleComponent,
+    OverviewComponent,
+    QuicksaleComponent,
+    DetailsComponent,
+    AllsalesComponent,
   ],
   imports: [
     CommonModule,

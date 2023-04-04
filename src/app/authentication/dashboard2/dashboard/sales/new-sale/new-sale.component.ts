@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { Toastr } from 'src/app/services/toastr.service';
@@ -23,9 +22,13 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     products: new FormArray([]),
   });
 
-  searchingClients = true;
+  searchingClients = false;
+  searchingProducts = false;
+  
+
   searchClientsResult: any[] = [];
   selectedClient!: any;
+  selectedProduct=false;
   searchProdutsResult: any[] = [];
 
   clientsList: any[] = [];
@@ -36,6 +39,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     private toastr: Toastr,
     private router: Router,
     public dataStorage:DataStorageService,
+    private readonly route:ActivatedRoute,
   ) {}
 
   get selectedProducts(): FormArray {
@@ -117,7 +121,10 @@ export class NewSaleComponent implements OnInit, OnDestroy {
                                                     });
   }
   onSearchClients(value:any){
-    if (value == '') this.searchClientsResult = [];
+    if (value == ''){
+       this.searchClientsResult = [];
+       this.searchingClients=false
+    }
     else{
             const temp_searchClientsResult = this.clientsList.filter(
                       (client: any) =>client.first_name.toLowerCase().includes(value.toLowerCase()) ||
@@ -128,10 +135,16 @@ export class NewSaleComponent implements OnInit, OnDestroy {
             else{
                 this.searchClientsResult=temp_searchClientsResult;
             }
+            this.searchingProducts=false;
+            this.searchingClients=true;
+            
       }
   }
   onSearchProducts(value:any){
-    if (value == '') this.searchProdutsResult = [];
+    if (value == ''){
+       this.searchProdutsResult = [];
+       this.searchingProducts=false;
+      }
     else{
         let temp_searchProdutsResult=this.productsList.filter( (product: any) =>product.name.toLowerCase().includes(value.toLowerCase()) &&
                                                                                   product.active &&
@@ -145,16 +158,42 @@ export class NewSaleComponent implements OnInit, OnDestroy {
         else{
             this.searchProdutsResult=temp_searchProdutsResult;
         }
+        this.searchingClients=false;
+        this.searchingProducts=true;
          
     }
   }
-
-  ngOnInit() {
-    if(this.dataStorage.selectedClient){
+  resumeData(){
+    if(this.dataStorage.selectedClient || this.dataStorage.salesForm?.get('products')){
       this.salesForm=this.dataStorage.salesForm;
       this.selectedClient=this.dataStorage.selectedClient;
       this.searchingClients=false;
     }
+    
+
+  }
+  onQuickSale(params:{[source:string]:string}){
+            if(params['quick_sale']){
+              this.salesForm.reset();
+              this.selectedClient='';
+              this.selectedProducts.clear();
+              console.log(this.salesForm.value)
+              this.http.getQuickSaleById(Number(params['quick_sale'])).subscribe((quickSale:any)=>{
+                                                                          for(let product of quickSale.products){
+                                                                                this.addProduct(product,'1')
+                                                                                console.log(product)}
+                                                                          console.log(this.salesForm.value)
+
+                                                                          })
+          }
+
+  }
+
+  ngOnInit() {
+
+    this.resumeData()
+    this.route.queryParams.subscribe((params:{[source:string]:string})=>{ this.onQuickSale(params)})
+    
     this.http.getAllClients().subscribe((response: any) => (this.clientsList = response));
     this.http.getProducts().subscribe((response: any) => (this.productsList = response));
 
@@ -162,14 +201,10 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
     this.searchProducts.get('searchInput')?.valueChanges.subscribe((value) => {  this.onSearchProducts(value)  });
 
-    // const cli = `{"id":27,"first_name":"Jessica","last_name":"Chen","address":"234 Pine St","city":"Boston","state":"Massachusetts","country":"US","phone":"+1(617)-555-5678","email":"jessica.chen@gmail.com","created_at":"2023-03-17T07:10:02.667600+00:00","updated_at":"2023-03-24T03:02:50.383325+00:00"}`;
-    // this.addClient(JSON.parse(cli));
-    // const obj=`[{"id":240,"name":"lenovo","price":500000,"sku":"656589","stock":47,"active":true}]`  //,{"id":142,"name":"nothing phone (1)","price":26000,"sku":"65461","stock":1,"active":true},{"id":216,"name":"Nothing Phone 1","price":7412,"sku":"754210","stock":75421,"active":true},{"id":213,"name":"Nothing Phone 1","price":654200,"sku":"4631","stock":4599,"active":true}]`;
-    // for (let product of JSON.parse(obj))
-    //     this.addProduct(product,'1');
   }
   ngOnDestroy() {
     this.dataStorage.salesForm=this.salesForm;
     this.dataStorage.selectedClient=this.selectedClient;
+    
   }
 }

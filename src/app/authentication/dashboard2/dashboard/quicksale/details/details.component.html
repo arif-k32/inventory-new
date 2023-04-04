@@ -8,7 +8,7 @@
 <div class="bg-blue-700 text-white px-3 py-3" style="text-align: center;"><p>Client Details</p></div>
 
     <table class="mt-1 min-w-full divide-y divide-gray-200 dark:divide-gray-700 " *ngIf="sales">
-        <tbody>
+        <thead>
           <tr>
             <th
               scope="col"
@@ -20,32 +20,11 @@
               scope="col"
               class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
             >
-              NAME: {{
-                sales.client.first_name +
-                  " " +
-                  sales.client.last_name
-              }}
+              NAME: {{ sales.name }}
             </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
-            >
-              ADDRESS: {{ sales.client.address }}
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
-            >
-              CREATED_AT: {{ sales.created_at | date }}
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3 text-left text-xs font-medium text-black  bg-blue-200 text-2xl"
-            >
-              TOTAL: {{ sales.total | currency }}
-            </th>
+            
           </tr>
-        </tbody>
+        </thead>
       </table>
 
 
@@ -59,37 +38,30 @@
         <th>ID</th>
         <th>NAME</th>
         <th>PRICE</th>
-        <th>QUANTITY</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of sales.items">
+      <tr *ngFor="let product of sales.products">
         
         <th
           scope="col"
           class="px-6 py-3  text-xs font-medium text-black  bg-blue-100 "
         >
-          {{ order.product_id }}
+          {{ product.id }}
         </th>
         <th
           scope="col"
           class="px-6 py-3  text-xs font-medium text-black  bg-blue-100 "
         >
-          {{ order.product_name }}
+          {{ product.name }}
         </th>
         <th
           scope="col"
           class="px-6 py-3  text-xs font-medium text-black  bg-blue-100"
         >
-          {{order.price | currency}}
-        </th>
-        <th
-          scope="col"
-          class="px-6 py-3  text-xs font-medium text-black  bg-blue-100"
-        >
-          {{order.quantity}}
+          {{product.price | currency}}
         </th>
         
       </tr>
-    </tbody>
-  </table>
+    </tbody> 
+   </table>

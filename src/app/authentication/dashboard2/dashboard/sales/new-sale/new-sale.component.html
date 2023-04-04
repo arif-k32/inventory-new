@@ -1,35 +1,25 @@
-<div class="background-image" style="min-height: 900px;display: flex;flex-direction: column;" >
-  <div style="text-align: end;" class="bg-blue-100 px-1 py-1" >
-    
-    
-      <a
-      routerLink="../sales"
-      class="px-2 py-1 mr-5  rounded-md border border-transparent font-semibold bg-indigo-700 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-    >
-      back
-    </a>
-    
-    
-  </div>
+<div  style="min-height: 900px;display: flex;flex-direction: column;" >
   
-  <div style="display: flex; flex-direction: row;border-top: 1px solid black;">
+  
+  <div style="display: flex; flex-direction: row;border-top: 1px solid black;height: 100%;">
     <!-- ///////////////////////////left part ///////////////////////////////////////// -->
     <div
       style="
         border-right: 1px solid black;
         width: 40%;
-        min-height: 900px;
+        min-height: 1080px;
         background-color: rgba(182, 221, 230, 0.669);
         padding-top: 0.5em;
       "
-    >
-    <div style="display: flex;flex-direction: row;">
-      <form>
+      
+      >
+     <div style="display: flex;flex-direction: row; justify-content: space-around;">
+        <form>
         <div
-        class="flex rounded-md shadow-sm"
+        class="flex rounded-md shadow-sm mb-3"
         [formGroup]="searchClients"
         
-      >
+        >
         <button
           type="button"
           class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-l-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
@@ -91,11 +81,13 @@
         />
       </div>
       </form>
+      
+      
     </div>
    
       
       
-      <table class="divide-y min-w-full" >
+      <table class="divide-y min-w-full" *ngIf="searchingClients">
         <tbody >
           <tr *ngFor="let user of searchClientsResult" class="bg-slate-400">
             <td>ID: {{ user.id }}</td>
@@ -120,7 +112,7 @@
           
         </tbody>
       </table>
-      <table class=" min-w-full" >
+      <table class=" min-w-full" *ngIf="searchingProducts">
         <tbody  >
           <tr *ngFor="let product of searchProdutsResult" class="bg-slate-400">
             <td>Name: {{ product.name }}</td>

@@ -1,4 +1,4 @@
-<div class="background-image">
+<div >
   <br />
 
   <div
@@ -48,14 +48,9 @@
 
   <app-addproduct *ngIf="addProduct"></app-addproduct>
 
-  <app-pagination
-    [numberOfPages]="numberOfPages"
-    [currentPage]="currentPage"
-    [pageSize]="pageSize.toString()"
-    (paginationChange)="pagination($event)"
-  ></app-pagination>
+  
 
-  <div class="flex flex-col">
+  <div class="flex flex-col min-w-full">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
         <div class="overflow-hidden">
@@ -175,4 +170,10 @@
       </div>
     </div>
   </div>
+  <app-pagination
+    [numberOfPages]="numberOfPages"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize.toString()"
+    (paginationChange)="pagination($event)"
+  ></app-pagination>
 </div>

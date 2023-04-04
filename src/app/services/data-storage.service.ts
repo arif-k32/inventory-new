@@ -8,5 +8,6 @@ export class DataStorageService {
 
   constructor() { }
   public selectedClient!:any;
+  public selectedProduct!:boolean;
   public salesForm!:FormGroup;
 }

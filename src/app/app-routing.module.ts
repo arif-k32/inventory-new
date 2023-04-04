@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardGuard } from './services/dashboard.guard';
-import { LoginGuard } from './services/login.guard';
 
 const routes: Routes = [
   {
@@ -15,11 +14,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [LoginGuard],
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -28,12 +26,11 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationModule
       ),
-    // canActivate:[DashboardGuard]
+    
   },
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [LoginGuard],
   },
 
   {
@@ -45,6 +42,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [LoginGuard, DashboardGuard],
+  providers: [ DashboardGuard],
 })
 export class AppRoutingModule {}
