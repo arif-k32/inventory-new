@@ -1,9 +1,10 @@
 import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map, Observable, of, Subscription } from 'rxjs';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { Toastr } from 'src/app/services/toastr.service';
 
@@ -12,7 +13,7 @@ import { Toastr } from 'src/app/services/toastr.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit, OnDestroy{
   productsObservable$!: Observable<any[]>;
   productsForm: FormGroup = new FormGroup({});
 
@@ -22,10 +23,10 @@ export class ProductsComponent {
     (products: any) => {
       ///filter by active
       let filteredProducts: any[] = [];
-      if (this.filters[this.active])
+      if (this.filters_active)
         filteredProducts = products.filter(
           (product: any) =>
-            product.active.toString() === this.filters[this.active]
+            product.active.toString() === this.filters_active
         );
       else filteredProducts = products;
       return filteredProducts;
@@ -34,8 +35,8 @@ export class ProductsComponent {
     (products: any) => {
       ///filter by stock
       let filteredProducts: any[] = [];
-      if (this.filters[this.stock])
-        if (this.filters[this.stock] == '0')
+      if (this.filters_stock)
+        if (this.filters_stock == '0')
           filteredProducts = products.filter(
             (product: any) => product.stock == 0
           );
@@ -48,9 +49,9 @@ export class ProductsComponent {
     },
   ];
 
-  filters = ['', '']; //// will be updated when change on filter dropdowns
-  active = 0;
-  stock = 1;
+  filters_active = '' //// will be updated when change on filter dropdowns
+  filters_stock =''
+  
 
   currentPage = 1;
   pageSize: number = 5;
@@ -61,9 +62,9 @@ export class ProductsComponent {
 
   constructor(
     private http: HttpServiceService,
-    private htprq: HttpClient,
     private toastr: Toastr,
-    private addProductSubject: AddDataResponseService
+    private addProductSubject: AddDataResponseService,
+    private readonly dataStorage:DataStorageService
   ) {}
 
   pagination(updatedPagination: { currentPage: number; pageSize: number }) {
@@ -74,12 +75,10 @@ export class ProductsComponent {
 
   setfiltersActive(activeDropdown: any) {
     ///will be called on change in dropdown
-    this.filters[this.active] = activeDropdown.target.value;
     this.currentPage = 1;
     this.getdata();
   }
   setfiltersStock(stockDropdown: any) {
-    this.filters[this.stock] = stockDropdown.target.value;
     this.currentPage = 1;
     this.getdata();
   }
@@ -105,6 +104,7 @@ export class ProductsComponent {
         this.toastr.showtoast('error', 'Product not valid');
         break;
     }
+    this.getdata();
   }
 
   switch(product: any, checkbox: any) {
@@ -137,8 +137,12 @@ export class ProductsComponent {
     });
   }
 
-  getdata() {
-    /// retrieves products from server
+  reloadProducts(){
+    this.getdata();
+
+  }
+
+  getdata() {    /// retrieves products from server
     this.productsObservable$ = this.http.getProducts().pipe(
       map((products: any) => {
         return this.checkfilters(products);
@@ -147,6 +151,7 @@ export class ProductsComponent {
     this.productsObservable$.subscribe((resp: any) => {
       this.numberOfProducts = resp.length;
       this.numberOfPages = Math.ceil(resp.length / this.pageSize);
+      this.productsForm=new FormGroup({});
       resp.map((product: any) => {
         this.productsForm.addControl(
           `${product.id}`,
@@ -168,6 +173,7 @@ export class ProductsComponent {
       });
     });
   }
+ 
 
   checkfilters(products: any) {
     for (const filter of this.filterFn) products = filter(products);
@@ -214,7 +220,41 @@ export class ProductsComponent {
       if (this.checkIfProductUpdated(product)) return false;
     return true;
   }
+  
+  onResume(){
+      const previous_state = this.dataStorage.products_state;
+      if(previous_state){
+        this.filters_active=previous_state.filters_active;
+        this.filters_stock=previous_state.filters_stock;
+        this.currentPage=previous_state.currentPage;
+        this.pageSize=previous_state.pageSize;
+        this.addProduct=previous_state.addProduct;
+        this.productsForm=previous_state.productsForm;
+        this.productsObservable$=previous_state.products$;
+        this.numberOfPages=previous_state.numberOfPages;
+        this.numberOfProducts=previous_state.numberOfProducts;
+      }
+      else{
+        this.getdata();
+      }
+  }
   ngOnInit(): void {
-    this.getdata();
+    this.onResume();
+    
+    
+  }
+  ngOnDestroy(): void {
+    const current_state = {
+                              filters_active:this.filters_active,
+                              filters_stock:this.filters_stock,
+                              currentPage:this.currentPage,
+                              pageSize:this.pageSize,
+                              addProduct:this.addProduct,
+                              productsForm:this.productsForm,
+                              products$:this.productsObservable$,
+                              numberOfPages:this.numberOfPages,
+                              numberOfProducts:this.numberOfProducts
+                          }
+    this.dataStorage.products_state=current_state;
   }
 }

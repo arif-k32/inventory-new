@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
+import { DataStorageService } from 'src/app/services/data-storage.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
 import { Toastr } from 'src/app/services/toastr.service';
 
@@ -11,7 +12,7 @@ import { Toastr } from 'src/app/services/toastr.service';
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit,OnDestroy {
   clients$!: Observable<any>;
   currentPage = 1;
   numberOfPages!: number;
@@ -39,7 +40,8 @@ export class ClientsComponent implements OnInit {
     private toastr: Toastr,
     private addClientSubject: AddDataResponseService,
     private router:Router,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private readonly dataStorage:DataStorageService
   ) {}
 
   showAddClient() {
@@ -69,7 +71,6 @@ export class ClientsComponent implements OnInit {
   }
   editClient(client: any) {
     this.updateClientForm.setValue(client);
-    console.log(client)
     this.editMode = true;
   }
   updateClient() {
@@ -108,14 +109,44 @@ export class ClientsComponent implements OnInit {
       this.numberOfPages = Math.ceil(this.numberOfClients / this.pageSize);
     });
   }
+  onResume(){
+    const previous_state = this.dataStorage.clients_state;
+    if(previous_state){
+      
+      this.currentPage=previous_state.currentPage;
+      this.pageSize=previous_state.pageSize;
+      this.editMode=previous_state.editMode;
+      this.updateClientForm=previous_state.updateClientForm;
+      this.addClient=previous_state.addClient;
+      this.clients$=previous_state.clients$;
+      this.numberOfClients=previous_state.numberOfClients;
+      this.numberOfPages=previous_state.numberOfPages;
+    }
+    else{
+      this.getClients();
+    }
+  }
 
   ngOnInit() {
-    this.getClients();
+    this.onResume();
     this.route.queryParams.subscribe((params:{[source:string]:string})=>{
       if(params['source']){
         this.addClient=true;
       }
     })
       
+  }
+  ngOnDestroy(): void {
+    const current_state={
+      clients$:this.clients$,
+      currentPage:this.currentPage,
+      pageSize:this.pageSize,
+      editMode:this.editMode,
+      updateClientForm:this.updateClientForm,
+      addClient:this.addClient,
+      numberOfClients:this.numberOfClients,
+      numberOfPages:this.numberOfPages
+    }
+    this.dataStorage.clients_state=current_state;
   }
 }

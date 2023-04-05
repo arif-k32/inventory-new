@@ -28,7 +28,6 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
   searchClientsResult: any[] = [];
   selectedClient!: any;
-  selectedProduct=false;
   searchProdutsResult: any[] = [];
 
   clientsList: any[] = [];
@@ -83,7 +82,6 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     this.salesForm.reset();
     this.selectedProducts.clear();
     this.searchingClients = true;
-    this.dataStorage.selectedClient='';
   }
 
   removeSelectedProducts(product_id: number) {
@@ -164,10 +162,12 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     }
   }
   resumeData(){
-    if(this.dataStorage.selectedClient || this.dataStorage.salesForm?.get('products')){
-      this.salesForm=this.dataStorage.salesForm;
-      this.selectedClient=this.dataStorage.selectedClient;
-      this.searchingClients=false;
+    const previous_state =this.dataStorage.newSale_state;
+    if(previous_state?.selectedClient || previous_state?.salesForm?.get('products')){
+      this.salesForm=previous_state.salesForm;
+      this.selectedClient=previous_state.selectedClient;
+      this.searchingClients=previous_state.searchingClients;
+      this.searchingProducts=previous_state.searchingProducts;
     }
     
 
@@ -203,8 +203,13 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    this.dataStorage.salesForm=this.salesForm;
-    this.dataStorage.selectedClient=this.selectedClient;
-    
+    const current_state = {
+                              selectedClient:this.selectedClient,
+                              salesForm:this.salesForm,
+                              searchingClients:this.searchingClients,
+                              searchingProducts:this.searchingProducts
+
+                           }
+    this.dataStorage.newSale_state=current_state;
   }
 }
