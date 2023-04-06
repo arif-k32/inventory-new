@@ -17,6 +17,7 @@ import { OverviewComponent } from './dashboard2/dashboard/overview/overview.comp
 import { QuicksaleComponent } from './dashboard2/dashboard/quicksale/quicksale.component';
 import { DetailsComponent } from './dashboard2/dashboard/quicksale/details/details.component';
 import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
+import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsale
     QuicksaleComponent,
     DetailsComponent,
     AllsalesComponent,
+    NewquicksaleComponent,
   ],
   imports: [
     CommonModule,

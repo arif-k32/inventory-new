@@ -44,7 +44,7 @@
           password is required.
         </p>
       </div>
-
+      
       <div>
         <button
           [disabled]="!loginform.valid"
@@ -53,7 +53,10 @@
         >
           Login
         </button>
+        
       </div>
+      <a routerLink="../register" class="text-red-300 m-3">New user ? Register now -></a>  
     </form>
+    
   </div>
 </div>

@@ -1,8 +1,7 @@
 import { formatCurrency } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
@@ -15,13 +14,12 @@ import { Toastr } from 'src/app/services/toastr.service';
 })
 export class ProductsComponent implements OnInit, OnDestroy{
   productsObservable$!: Observable<any[]>;
+  productsList!:any[];
   productsForm: FormGroup = new FormGroup({});
 
-  filterFn: Function[] = [
-    ///// contains all filter methods
+  filterFn: Function[] = [   ///// contains all filter methods
 
-    (products: any) => {
-      ///filter by active
+    (products: any) => {   ///filter by active
       let filteredProducts: any[] = [];
       if (this.filters_active)
         filteredProducts = products.filter(
@@ -32,8 +30,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
       return filteredProducts;
     },
 
-    (products: any) => {
-      ///filter by stock
+    (products: any) => {   ///filter by stock
       let filteredProducts: any[] = [];
       if (this.filters_stock)
         if (this.filters_stock == '0')
@@ -73,8 +70,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.numberOfPages = Math.ceil(this.numberOfProducts / this.pageSize);
   }
 
-  setfiltersActive(activeDropdown: any) {
-    ///will be called on change in dropdown
+  setfiltersActive(activeDropdown: any) {   ///will be called on change in dropdown
     this.currentPage = 1;
     this.getdata();
   }
@@ -107,8 +103,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.getdata();
   }
 
-  switch(product: any, checkbox: any) {
-    /// sets product active or invactive
+  switch(product: any, checkbox: any) {  /// sets product active or invactive
     if (checkbox.target.checked == true) {
       this.productsForm.controls[product.id].get('price')?.enable();
       this.productsForm.controls[product.id].get('stock')?.enable();
@@ -120,8 +115,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     }
   }
 
-  setPriceInputFieldOnChange(product: any, event: any) {
-    // converts number to currency in input field
+  setPriceInputFieldOnChange(product: any, event: any) {   // converts number to currency in input field
     const newvalue = this.getCurrencyFromNumber(
       this.getNumberFromText(event.target.value)
     );
@@ -204,8 +198,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     return formatCurrency(value, 'en-US', '$');
   }
 
-  checkIfProductUpdated(product: any) {
-    //toggles update button on or off
+  checkIfProductUpdated(product: any) {   //toggles update button on or off
     const { price, stock } = this.productsForm.controls[product.id].value;
     if (!this.productsForm.controls[product.id].get('switch')?.value)
       return false;
@@ -214,8 +207,7 @@ export class ProductsComponent implements OnInit, OnDestroy{
     );
   }
 
-  updateEnableOrDisable(product: any) {
-    //toggles update button on or off
+  updateEnableOrDisable(product: any) {    //toggles update button on or off
     if (this.productsForm.controls[product.id].get('switch')?.value)
       if (this.checkIfProductUpdated(product)) return false;
     return true;

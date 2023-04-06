@@ -11,6 +11,7 @@ import { QuicksaleComponent } from './dashboard2/dashboard/quicksale/quicksale.c
 import { DetailsComponent } from './dashboard2/dashboard/quicksale/details/details.component';
 import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
 import { DashboardGuard } from '../services/dashboard.guard';
+import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
                     {
                       path:'newsale',
                       component:NewSaleComponent
+                    },
+                    {
+                      path:'newquicksale',
+                      component:NewquicksaleComponent
                     },
                     {
                       path:'allsales/:id',

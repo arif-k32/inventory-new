@@ -8,6 +8,11 @@ import { DashboardGuard } from './services/dashboard.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
     path: 'home',
     component: HomeComponent,
   },
@@ -16,10 +21,10 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    path: 'register',
+    component: RegisterComponent,
   },
+  
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -28,11 +33,6 @@ const routes: Routes = [
       ),
     
   },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-
   {
     path: '**',
     component: PagenotfoundComponent,
