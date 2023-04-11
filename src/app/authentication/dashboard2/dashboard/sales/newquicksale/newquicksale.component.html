@@ -99,10 +99,24 @@
       <div style="width: 50%;padding-top: 0.5em;">
     
                 <div
+                    *ngIf="quickSaleForm.controls['name'].value"
                     class="bg-blue-300 text-white px-3 py-3 "
                     style="text-align: center"
                             >
+                            <p>Name</p>
                 </div>
+                <div class="bg-blue-100 text-black px-3 py-3 text-center flex justify-between" *ngIf="quickSaleForm.controls['name'].value"><p>
+                   {{quickSaleForm.controls['name'].value}}
+                </p>
+                <button
+                (click)="removeQuickSaleName()"
+                type="button"
+                class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+              >
+                Remove
+              </button></div>
+
+                <!-- //////////////// products ///////////// -->
               
         <div
           class="bg-blue-300 text-white px-3 py-3 mt-1"
@@ -127,7 +141,7 @@
               
               <td class="py-1">
                 <button
-                  (click)="removeSelectedProducts(product?.value.id)"
+                  (click)="removeSelectedProducts(product.id)"
                   type="button"
                   class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                 >

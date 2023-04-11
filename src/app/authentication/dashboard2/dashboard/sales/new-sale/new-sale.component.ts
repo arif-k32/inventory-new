@@ -177,13 +177,10 @@ export class NewSaleComponent implements OnInit, OnDestroy {
               this.salesForm.reset();
               this.selectedClient='';
               this.selectedProducts.clear();
-              console.log(this.salesForm.value)
               this.http.getQuickSaleById(Number(params['quick_sale'])).subscribe((quickSale:any)=>{
                                                                           for(let product of quickSale.products){
                                                                                 this.addProduct(product,'1')
-                                                                                console.log(product)}
-                                                                          console.log(this.salesForm.value)
-
+                                                                              }
                                                                           })
           }
 

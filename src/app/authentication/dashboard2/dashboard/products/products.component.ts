@@ -1,5 +1,5 @@
 import { formatCurrency } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { AddDataResponseService } from 'src/app/services/add-data-response.service';
@@ -12,7 +12,7 @@ import { Toastr } from 'src/app/services/toastr.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit, OnDestroy{
+export class ProductsComponent implements OnInit{
   productsObservable$!: Observable<any[]>;
   productsList!:any[];
   productsForm: FormGroup = new FormGroup({});
@@ -213,40 +213,9 @@ export class ProductsComponent implements OnInit, OnDestroy{
     return true;
   }
   
-  onResume(){
-      const previous_state = this.dataStorage.products_state;
-      if(previous_state){
-        this.filters_active=previous_state.filters_active;
-        this.filters_stock=previous_state.filters_stock;
-        this.currentPage=previous_state.currentPage;
-        this.pageSize=previous_state.pageSize;
-        this.addProduct=previous_state.addProduct;
-        this.productsForm=previous_state.productsForm;
-        this.productsObservable$=previous_state.products$;
-        this.numberOfPages=previous_state.numberOfPages;
-        this.numberOfProducts=previous_state.numberOfProducts;
-      }
-      else{
-        this.getdata();
-      }
-  }
+  
   ngOnInit(): void {
-    this.onResume();
-    
-    
+    this.getdata();
   }
-  ngOnDestroy(): void {
-    const current_state = {
-                              filters_active:this.filters_active,
-                              filters_stock:this.filters_stock,
-                              currentPage:this.currentPage,
-                              pageSize:this.pageSize,
-                              addProduct:this.addProduct,
-                              productsForm:this.productsForm,
-                              products$:this.productsObservable$,
-                              numberOfPages:this.numberOfPages,
-                              numberOfProducts:this.numberOfProducts
-                          }
-    this.dataStorage.products_state=current_state;
-  }
+ 
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataStorageService } from 'src/app/services/data-storage.service';
 import { HttpServiceService } from 'src/app/services/http-service.service';
@@ -8,7 +8,7 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
   templateUrl: './allsales.component.html',
   styleUrls: ['./allsales.component.scss']
 })
-export class AllsalesComponent implements OnInit, OnDestroy {
+export class AllsalesComponent implements OnInit {
   sales$!:Observable<any>;
   
   
@@ -34,35 +34,11 @@ export class AllsalesComponent implements OnInit, OnDestroy {
                                     this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
                                 })
   }
-  onResume(){
-    const previous_state = this.dataStorage.allsale_state;
-    if(previous_state){
-      console.log('ds')
-      // this.sales$=previous_state.sales$;
-      this.currentPage=previous_state.currentPage;
-      this.numberOfPages=previous_state.numberOfPages;
-      this.numberOfSales=previous_state.numberOfSales;
-      this.pageSize=previous_state.pageSize;
-    }
-    else{
-      this.getSales();
-      
-    }
-  }
+ 
 
   ngOnInit(){
-      this.onResume();
+      this.getSales();
   }
-  ngOnDestroy(): void {
-    const current_state={
-      sales$:this.sales$,
-      currentPage:this.currentPage,
-      numberOfPages:this.numberOfPages,
-      numberOfSales:this.numberOfSales,
-      pageSize:this.pageSize
-    }
-    console.log(this.sales$)
-    // this.dataStorage.allsale_state=current_state;
-  }
+  
 
 }
