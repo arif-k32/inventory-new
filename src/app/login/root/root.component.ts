@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpServiceService } from '../services/http-service.service';
-import { IsloggedinService } from '../services/isloggedin.service';
-import { TokenstorageService } from '../services/tokenstorage.service';
+import { HttpServiceService } from 'src/app/services/http-service.service';
+import { IsloggedinService } from 'src/app/services/isloggedin.service';
+import { TokenstorageService } from 'src/app/services/tokenstorage.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-root',
+  templateUrl: './root.component.html',
+  styleUrls: ['./root.component.scss']
 })
-export class LoginComponent {
+export class RootComponent {
   constructor(
     private router: Router,
     private http: HttpServiceService,

@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { RegisterComponent } from './register/register.component';
-import { DashboardGuard } from './services/dashboard.guard';
 
 const routes: Routes = [
   {
@@ -12,17 +8,20 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
+  
   {
     path: 'login',
-    component: LoginComponent,
+    loadChildren: () =>
+      import('./login/login.module').then(
+        (m) => m.LoginModule
+      ),
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadChildren: () =>
+      import('./register/register.modulle').then(
+        (m) => m.RegisterModule
+      ),
   },
   
   {
@@ -42,6 +41,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [ DashboardGuard],
 })
 export class AppRoutingModule {}

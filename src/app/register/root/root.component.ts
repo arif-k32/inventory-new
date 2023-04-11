@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpServiceService } from '../services/http-service.service';
-import { Toastr } from 'src/app/services/toastr.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpServiceService } from 'src/app/services/http-service.service';
+import { Toastr } from 'src/app/services/toastr.service'
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-root',
+  templateUrl: './root.component.html',
+  styleUrls: ['./root.component.scss']
 })
-export class RegisterComponent {
-  constructor(private router: Router, private http: HttpServiceService, private readonly toastr:Toastr) {}
+export class RootComponent {
+  constructor(private router: Router, private http: HttpServiceService,private readonly toastr:Toastr ) {}
   registerform = new FormGroup({
     id: new FormControl(0),
     first_name: new FormControl('', [Validators.required]),
@@ -21,7 +22,7 @@ export class RegisterComponent {
 
   register() {
     if(!this.registerform.valid){
-          this.toastr.showtoast('error','Inputs not valid');
+          this.toastr.showtoast('error','inputs are invalid')
           return;
     }
     this.http.registerUser(this.registerform).subscribe((response) => {
