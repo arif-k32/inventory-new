@@ -10,7 +10,7 @@
   
       <nav class="text-base font-semibold pt-3">
         <a
-          routerLinkActive="activePage text-blue-700 border-blue-700"
+          routerLinkActive="bg-gray-300 text-blue-700 border-blue-700"
           routerLink="overview"
           [routerLinkActiveOptions]="{ exact: true }"
           class="flex items-center active-nav-link py-4 pl-6 nav-item hover:bg-gray-300"
@@ -35,7 +35,7 @@
         </a>
         <a
           routerLink="products"
-          routerLinkActive="activePage text-blue-700 border-blue-700"
+          routerLinkActive="bg-gray-300 text-blue-700 border-blue-700"
           class="flex items-center hover:opacity-100 py-4 pl-6 nav-item hover:bg-gray-300"
         >
           <svg
@@ -52,7 +52,7 @@
         </a>
         <a
           routerLink="clients"
-          routerLinkActive="activePage text-blue-700 border-blue-700"
+          routerLinkActive="bg-gray-300 text-blue-700 border-blue-700"
           class="flex items-center hover:opacity-100 py-4 pl-6 nav-item hover:bg-gray-300"
         >
           <svg
@@ -71,7 +71,7 @@
         </a>
         <a
           routerLink="sales"
-          routerLinkActive="activePage text-blue-700 border-blue-700"
+          routerLinkActive="bg-gray-300 text-blue-700 border-blue-700"
           class="flex items-center hover:opacity-100 py-4 pl-6 nav-item hover:bg-gray-300"
         >
           <svg
@@ -108,7 +108,7 @@
       </nav>
     </aside>
   
-    <div style="width: 100%" class="background-image">
+    <div style="width: 100%; background-image: url('/assets/dashboard.avif');" class="bg-cover bg-center h-screen">
       <router-outlet></router-outlet>
     </div>
   </div>

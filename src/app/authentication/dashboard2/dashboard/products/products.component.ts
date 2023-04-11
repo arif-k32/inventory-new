@@ -10,7 +10,6 @@ import { Toastr } from 'src/app/services/toastr.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit{
   productsObservable$!: Observable<any[]>;

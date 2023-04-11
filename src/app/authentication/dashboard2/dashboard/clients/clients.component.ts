@@ -10,7 +10,6 @@ import { Toastr } from 'src/app/services/toastr.service';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit {
   clients$!: Observable<any>;

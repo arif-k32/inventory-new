@@ -8,7 +8,6 @@ import { TokenstorageService } from 'src/app/services/tokenstorage.service';
 @Component({
   selector: 'app-root',
   templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss']
 })
 export class RootComponent {
   constructor(

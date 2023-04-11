@@ -8,7 +8,6 @@ import { Toastr } from 'src/app/services/toastr.service'
 @Component({
   selector: 'app-root',
   templateUrl: './root.component.html',
-  styleUrls: ['./root.component.scss']
 })
 export class RootComponent {
   constructor(private router: Router, private http: HttpServiceService,private readonly toastr:Toastr ) {}
