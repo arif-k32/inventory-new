@@ -18,7 +18,6 @@ import { TokenInterceptor } from './services/token.interceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
