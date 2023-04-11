@@ -6,7 +6,6 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
 @Component({
   selector: 'app-allsales',
   templateUrl: './allsales.component.html',
-  styleUrls: ['./allsales.component.scss']
 })
 export class AllsalesComponent implements OnInit {
   sales$!:Observable<any>;

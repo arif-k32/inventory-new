@@ -5,7 +5,6 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent {
   sales!:any;

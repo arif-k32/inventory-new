@@ -9,7 +9,6 @@ import {  Toastr} from 'src/app/services/toastr.service'
 @Component({
   selector: 'app-newquicksale',
   templateUrl: './newquicksale.component.html',
-  styleUrls: ['./newquicksale.component.scss']
 })
 export class NewquicksaleComponent {
   

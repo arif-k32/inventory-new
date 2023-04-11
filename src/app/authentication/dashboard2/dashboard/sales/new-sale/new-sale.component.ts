@@ -8,7 +8,6 @@ import { Toastr } from 'src/app/services/toastr.service';
 @Component({
   selector: 'app-new-sale',
   templateUrl: './new-sale.component.html',
-  styleUrls: ['./new-sale.component.scss'],
 })
 export class NewSaleComponent implements OnInit, OnDestroy {
   searchClients: FormGroup = new FormGroup({

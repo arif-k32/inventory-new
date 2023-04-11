@@ -6,7 +6,6 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
 @Component({
   selector: 'app-quicksale',
   templateUrl: './quicksale.component.html',
-  styleUrls: ['./quicksale.component.scss']
 })
 export class QuicksaleComponent {
   quickSales$!:Observable<any>;
