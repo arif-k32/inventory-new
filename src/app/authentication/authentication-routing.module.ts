@@ -1,7 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientsComponent } from './dashboard2/dashboard/clients/clients.component';
-import { Dashboard2Component } from './dashboard2/dashboard/dashboard2.component';
 import { ProductsComponent } from './dashboard2/dashboard/products/products.component';
 import { NewSaleComponent } from './dashboard2/dashboard/sales/new-sale/new-sale.component';
 import { SaleComponent } from './dashboard2/dashboard/sales/sale/sale.component';
@@ -12,11 +11,12 @@ import { DetailsComponent } from './dashboard2/dashboard/quicksale/details/detai
 import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
 import { DashboardGuard } from '../services/dashboard.guard';
 import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
+import { RootComponent } from './dashboard2/dashboard/root/root.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: Dashboard2Component,
+    component: RootComponent,
     canActivateChild:[DashboardGuard],
     children: [
       {

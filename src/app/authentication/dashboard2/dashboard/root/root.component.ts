@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard2',
-  templateUrl: './dashboard2.component.html',
+  selector: 'app-root',
+  templateUrl: './root.component.html',
   styles: [
     `
       .activePage {
@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
       }
     `,
   ],
-  styleUrls:['./dashboard2.component.scss']
+  styleUrls: ['./root.component.scss']
 })
-export class Dashboard2Component {}
+export class RootComponent {
+
+}
