@@ -8,7 +8,6 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent {
-
   sales!:any;
 
   constructor( private route: ActivatedRoute, private http: HttpServiceService) {}
@@ -25,5 +24,4 @@ export class DetailsComponent {
                                   this.http.getQuickSaleById(sale_id).subscribe(sale=>this.sales=sale)
                                 });
   }
-
 }

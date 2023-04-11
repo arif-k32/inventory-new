@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpServiceService } from 'src/app/services/http-service.service';
@@ -8,8 +8,7 @@ import { HttpServiceService } from 'src/app/services/http-service.service';
   templateUrl: './quicksale.component.html',
   styleUrls: ['./quicksale.component.scss']
 })
-export class QuicksaleComponent implements OnInit {
-
+export class QuicksaleComponent {
   quickSales$!:Observable<any>;
 
   currentPage=1;

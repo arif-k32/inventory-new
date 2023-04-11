@@ -1,17 +1,17 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardGuard } from '../services/dashboard.guard';
 import { ClientsComponent } from './dashboard2/dashboard/clients/clients.component';
+import { OverviewComponent } from './dashboard2/dashboard/overview/overview.component';
 import { ProductsComponent } from './dashboard2/dashboard/products/products.component';
+import { DetailsComponent } from './dashboard2/dashboard/sales/quicksale/details/details.component';
+import { QuicksaleComponent } from './dashboard2/dashboard/sales/quicksale/quicksale.component';
+import { RootComponent } from './dashboard2/dashboard/root/root.component';
+import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
 import { NewSaleComponent } from './dashboard2/dashboard/sales/new-sale/new-sale.component';
+import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
 import { SaleComponent } from './dashboard2/dashboard/sales/sale/sale.component';
 import { SalesComponent } from './dashboard2/dashboard/sales/sales.component';
-import { OverviewComponent } from './dashboard2/dashboard/overview/overview.component';
-import { QuicksaleComponent } from './dashboard2/dashboard/quicksale/quicksale.component';
-import { DetailsComponent } from './dashboard2/dashboard/quicksale/details/details.component';
-import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
-import { DashboardGuard } from '../services/dashboard.guard';
-import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
-import { RootComponent } from './dashboard2/dashboard/root/root.component';
 
 const routes: Routes = [
   {
