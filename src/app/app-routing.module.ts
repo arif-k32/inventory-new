@@ -27,8 +27,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
+      import('./authentication/dashboard.module').then(
+        (m) => m.DashboardModule
       ),
     
   },

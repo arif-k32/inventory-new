@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationPipe } from '../services/pagination.pipe';
-import { AuthenticationRoutingModule } from './authentication-routing.module';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AddnewclientComponent } from './dashboard2/dashboard/clients/addnewclient/addnewclient.component';
 import { ClientsComponent } from './dashboard2/dashboard/clients/clients.component';
 import { PaginationComponent } from './dashboard2/dashboard/pagination/pagination.component';
@@ -39,9 +39,9 @@ import { RootComponent } from './dashboard2/dashboard/root/root.component';
   ],
   imports: [
     CommonModule,
-    AuthenticationRoutingModule,
+    DashboardRoutingModule,
     FormsModule,
     ReactiveFormsModule,
   ],
 })
-export class AuthenticationModule {}
+export class DashboardModule {}

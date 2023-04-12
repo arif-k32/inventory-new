@@ -92,4 +92,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers:[DashboardGuard]
 })
-export class AuthenticationRoutingModule {}
+export class DashboardRoutingModule {}
