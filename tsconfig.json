@@ -22,7 +22,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@sales/*":["src/app/authentication/dashboard2/dashboard/sales/*"],
+      "@clients/*":["src/app/authentication/dashboard2/dashboard/clients/*"],
+      "@overview/*":["src/app/authentication/dashboard2/dashboard/overview/*"],
+      "@products/*":["src/app/authentication/dashboard2/dashboard/products/*"],
+      "@services/*":["src/app/services/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

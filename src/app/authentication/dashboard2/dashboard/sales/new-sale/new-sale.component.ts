@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataStorageService } from 'src/app/services/data-storage.service';
-import { HttpServiceService } from 'src/app/services/http-service.service';
-import { Toastr } from 'src/app/services/toastr.service';
+import { DataStorageService } from '@services/data-storage.service';
+import { HttpServiceService } from '@services/http-service.service';
+import { Toastr } from '@services/toastr.service';
 
 @Component({
   selector: 'app-new-sale',

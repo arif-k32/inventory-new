@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardGuard } from '../services/dashboard.guard';
-import { ClientsComponent } from './dashboard2/dashboard/clients/clients.component';
-import { OverviewComponent } from './dashboard2/dashboard/overview/overview.component';
-import { ProductsComponent } from './dashboard2/dashboard/products/products.component';
-import { DetailsComponent } from './dashboard2/dashboard/sales/quicksale/details/details.component';
-import { QuicksaleComponent } from './dashboard2/dashboard/sales/quicksale/quicksale.component';
-import { RootComponent } from './dashboard2/dashboard/root/root.component';
-import { AllsalesComponent } from './dashboard2/dashboard/sales/allsales/allsales.component';
-import { NewSaleComponent } from './dashboard2/dashboard/sales/new-sale/new-sale.component';
-import { NewquicksaleComponent } from './dashboard2/dashboard/sales/newquicksale/newquicksale.component';
-import { SaleComponent } from './dashboard2/dashboard/sales/sale/sale.component';
-import { SalesComponent } from './dashboard2/dashboard/sales/sales.component';
+import { AllsalesComponent } from '@sales/allsales/allsales.component';
+import { NewSaleComponent } from '@sales/new-sale/new-sale.component';
+import { NewquicksaleComponent } from '@sales/newquicksale/newquicksale.component';
+import { DetailsComponent } from '@sales/quicksale/details/details.component';
+import { QuicksaleComponent } from '@sales/quicksale/quicksale.component';
+import { SaleComponent } from '@sales/sale/sale.component';
+import { SalesComponent } from '@sales/sales.component';
+import { DashboardGuard } from '@services/dashboard.guard';
+import { ClientsComponent } from '@clients/clients.component';
+import { OverviewComponent } from '@overview/overview.component';
+import { ProductsComponent } from '@products/products.component';
+import { RootComponent } from 'src/app/authentication/dashboard2/dashboard/root/root.component';
 
 const routes: Routes = [
   {

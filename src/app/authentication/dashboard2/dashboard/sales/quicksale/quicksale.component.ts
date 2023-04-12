@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { HttpServiceService } from '@services/http-service.service';
 
 @Component({
   selector: 'app-quicksale',

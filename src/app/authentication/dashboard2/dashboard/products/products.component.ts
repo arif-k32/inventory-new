@@ -2,10 +2,10 @@ import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription, map, of } from 'rxjs';
-import { AddDataResponseService } from 'src/app/services/add-data-response.service';
-import { DataStorageService } from 'src/app/services/data-storage.service';
-import { HttpServiceService } from 'src/app/services/http-service.service';
-import { Toastr } from 'src/app/services/toastr.service';
+import { AddDataResponseService } from '@services/add-data-response.service';
+import { DataStorageService } from '@services/data-storage.service';
+import { HttpServiceService } from '@services/http-service.service';
+import { Toastr } from '@services/toastr.service';
 
 @Component({
   selector: 'app-products',

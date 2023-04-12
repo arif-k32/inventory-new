@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataStorageService } from 'src/app/services/data-storage.service';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { DataStorageService } from '@services/data-storage.service';
+import { HttpServiceService } from '@services/http-service.service';
 
 @Component({
   selector: 'app-allsales',

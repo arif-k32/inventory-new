@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { HttpServiceService } from '@services/http-service.service';
 
 @Component({
   selector: 'app-details',

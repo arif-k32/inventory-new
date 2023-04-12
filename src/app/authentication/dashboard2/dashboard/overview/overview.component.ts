@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpServiceService } from 'src/app/services/http-service.service';
+import { HttpServiceService } from '@services/http-service.service';
 
 @Component({
   selector: 'app-overview',
