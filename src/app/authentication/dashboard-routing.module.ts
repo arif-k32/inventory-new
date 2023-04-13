@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ClientsComponent } from '@clients/clients.component';
+import { OverviewComponent } from '@overview/overview.component';
+import { ProductsComponent } from '@products/products.component';
 import { AllsalesComponent } from '@sales/allsales/allsales.component';
 import { NewSaleComponent } from '@sales/new-sale/new-sale.component';
 import { NewquicksaleComponent } from '@sales/newquicksale/newquicksale.component';
@@ -8,9 +11,6 @@ import { QuicksaleComponent } from '@sales/quicksale/quicksale.component';
 import { SaleComponent } from '@sales/sale/sale.component';
 import { SalesComponent } from '@sales/sales.component';
 import { DashboardGuard } from '@services/dashboard.guard';
-import { ClientsComponent } from '@clients/clients.component';
-import { OverviewComponent } from '@overview/overview.component';
-import { ProductsComponent } from '@products/products.component';
 import { RootComponent } from 'src/app/authentication/dashboard2/dashboard/root/root.component';
 
 const routes: Routes = [
