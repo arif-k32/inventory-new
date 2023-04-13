@@ -1,0 +1,75 @@
+
+
+<table  style="border-top:1px solid black ;"
+class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 "
+>
+<thead>
+  <tr>
+    <th
+      scope="col"
+      class="px-6 py-3 text-left text-xs font-medium text-black uppercase bg-blue-300"
+    >
+      Id
+    </th>
+    <th
+      scope="col"
+      class="px-6 py-3 text-left text-xs font-medium text-black uppercase bg-blue-300"
+    >
+      Name
+    </th>
+    
+    <th
+      scope="col"
+      class="px-6 py-3 text-left text-xs font-medium uppercase bg-blue-300"
+    >
+      Products
+    </th>
+    <th
+      scope="col"
+      class="px-6 py-3 text-left text-xs font-medium uppercase bg-blue-300"
+    >
+      Actions
+    </th>
+    
+  </tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+  <tr *ngFor="let sale of quickSales$ | pagination : currentPage : pageSize | async">
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+      {{ sale.id }}
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+      {{ sale.name }}
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+      {{ sale.products.length }}
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
+      <a
+        routerLink="./{{ sale.id }}"
+        type="button"
+        class="py-2 mr-2 px-3  disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+      >
+        Details
+      </a>
+      <button
+        type="button"
+        (click)="goToQuickSale(sale.id)"
+        class="py-2 mr-2 px-3  disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+      >
+        use +
+      </button>
+    </td>
+   
+    
+  </tr>
+</tbody>
+</table>
+
+<app-pagination
+        class="mr-2"
+        [numberOfPages]="numberOfPages"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize.toString()"
+        (paginationChange)="pagination($event)"
+      ></app-pagination>

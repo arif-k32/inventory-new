@@ -1,0 +1,89 @@
+<div style="display: flex; flex-direction: column" class="bg-yellow-200">
+  <div
+    class="mb-3 p-2 bg-gray-800 text-white"
+    style="width: 100%; text-align: center"
+  >
+    <h2>Add Product</h2>
+  </div>
+  <div class="m-2">
+    <form
+      [formGroup]="newproduct"
+      (submit)="newproductf()"
+      style="display: flex; flex-direction: row; justify-content: space-between"
+      class="mb-3"
+    >
+      <div>
+        <label for="name" class="block text-sm font-medium mb-2 dark:text-black"
+          >Name</label
+        >
+        <input
+          formControlName="name"
+          type="text"
+          id="name"
+          class="dashboard-input"
+          placeholder="product name"
+        />
+      </div>
+      <div>
+        <label
+          for="price"
+          class="block text-sm font-medium mb-2 dark:text-black"
+          >Price</label
+        >
+        <input
+          formControlName="price"
+          type="number"
+          id="price"
+          class="dashboard-input"
+          placeholder="price"
+        />
+      </div>
+      <div>
+        <label for="sku" class="block text-sm font-medium mb-2 dark:text-black"
+          >Sku</label
+        >
+        <input
+          formControlName="sku"
+          type="text"
+          id="sku"
+          class="dashboard-input"
+          placeholder="sku"
+        />
+      </div>
+      <div>
+        <label
+          for="stock"
+          class="block text-sm font-medium mb-2 dark:text-black"
+          >Stock</label
+        >
+        <input
+          formControlName="stock"
+          type="number"
+          id="stock"
+          class="dashboard-input"
+          placeholder="stock"
+        />
+      </div>
+      <div>
+        <label
+          for="active"
+          class="block text-sm font-medium mb-2 dark:text-black"
+          >Active</label
+        >
+        <input
+          type="checkbox"
+          class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+          id="active"
+        />
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="mt-5 py-1 px-2 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 transition-all text-sm dark:focus:ring-gray-900 dark:focus:ring-offset-gray-800"
+        >
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

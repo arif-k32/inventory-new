@@ -1,0 +1,38 @@
+
+
+
+
+  <div class="border-b border-gray-200 dark:border-gray-700">
+    <nav class="flex space-x-2" >
+      <a  
+        routerLink="allsales"
+        routerLinkActive="font-semibold border-blue-600 text-black activeSales"
+      class=" py-4 px-5 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 " >
+        All
+      </a>
+      <a
+        routerLink="quick-sales" 
+        routerLinkActive="font-semibold border-blue-600 text-black activeSales"
+         class=" py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"  >
+        Quick Sales
+      </a>
+      <a 
+        routerLink="newsale"
+        routerLinkActive="font-semibold border-blue-600 text-black activeSales"
+       class=" py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600" >
+        New-Sale
+      </a>
+      <a 
+        routerLink="newquicksale"
+        routerLinkActive="font-semibold border-blue-600 text-black activeSales"
+        class=" py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600" >
+        New-QuickSale
+      </a>
+    </nav>
+  </div>
+
+  <div style="width: 100%;" class="mt-2">
+    <router-outlet></router-outlet>
+  </div>
+  
+  

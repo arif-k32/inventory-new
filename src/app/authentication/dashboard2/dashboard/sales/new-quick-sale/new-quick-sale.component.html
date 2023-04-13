@@ -1,0 +1,173 @@
+<div  style="min-height: 900px;display: flex;flex-direction: column;" >
+  
+  
+    <div style="display: flex; flex-direction: row;border-top: 1px solid black;height: 100%;">
+      <!-- ///////////////////////////left part ///////////////////////////////////////// -->
+                     <!-- .......... add quick sale name .................. -->
+      <div
+        style="
+          border-right: 1px solid black;
+          width: 50%;
+          min-height: 1080px;
+          background-color: rgba(182, 221, 230, 0.669);
+          padding-top: 0.5em;
+        "
+        
+        >
+       <div style="display: flex;flex-direction: column; justify-content: space-around;align-items: center;">
+          
+          <div class="flex rounded-md shadow-sm mb-3" >
+          
+          <input
+            #quickSaleName
+            placeholder="Enter quick sale name"
+            type="text"
+            
+           
+            class="py-3 px-4 block border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+          />
+          <button
+            (click)="addQuickSaleName(quickSaleName.value)"
+            type="button"
+            class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+    
+                        <!-- .........search products ...............-->
+        <form >  
+          <div
+          class="flex rounded-md shadow-sm ml-1"
+          [formGroup]="searchProducts"
+          
+        >
+          
+          <input
+            formControlName="searchInput"
+            placeholder="search Products"
+            type="text"
+            
+            class="py-3 px-4 block border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
+          />
+          <button
+            type="button"
+            class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+          >
+            <svg
+              class="h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </button>
+        </div>
+        </form>
+        
+        
+      </div>
+     
+        
+        
+        
+        <table class=" min-w-full" *ngIf="searchingProducts">
+          <tbody  >
+            <tr *ngFor="let product of searchProdutsResult" class="bg-slate-400">
+              <td>Name: {{ product.name }}</td>
+              <td>Stock: {{ product.stock }}</td>
+              <td class="py-1">
+                <button
+                  (click)="addProduct(product)"
+                  type="button"
+                  class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                >
+                  Add
+                </button>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- ///////// right part ////////////////////////////////// -->
+      <div style="width: 50%;padding-top: 0.5em;">
+    
+                <div
+                    *ngIf="quickSaleForm.controls['name'].value"
+                    class="bg-blue-300 text-white px-3 py-3 "
+                    style="text-align: center"
+                            >
+                            <p>Name</p>
+                </div>
+                <div class="bg-blue-100 text-black px-3 py-3 text-center flex justify-between" *ngIf="quickSaleForm.controls['name'].value"><p>
+                   {{quickSaleForm.controls['name'].value}}
+                </p>
+                <button
+                (click)="removeQuickSaleName()"
+                type="button"
+                class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+              >
+                Remove
+              </button></div>
+
+                <!-- //////////////// products ///////////// -->
+              
+        <div
+          class="bg-blue-300 text-white px-3 py-3 mt-1"
+          style="text-align: center"
+          *ngIf="selectedProducts.controls[0]"
+        >
+          <p>Products</p>
+        </div>
+          <table
+          class="min-w-full "
+          *ngIf="selectedProducts.controls[0]"
+        >
+            
+          
+          <tbody class="bg-slate-400">
+            <tr *ngFor="let product of products_view" >
+              <td>ID: {{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>Price: {{ product.price }}</td>
+              <td>Stock: {{ product.stock }}</td>
+              
+              
+              <td class="py-1">
+                <button
+                  (click)="removeSelectedProducts(product.id)"
+                  type="button"
+                  class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                >
+                  Remove
+                </button>
+              </td>
+              
+            </tr>
+            <tr>
+              <td colspan="4">Total Products: {{selectedProducts.controls.length}}</td>
+              
+              
+              <td><button
+                (click)="confirmSale()"
+                type="button"
+                class="py-2 mr-2 mt-1 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+              >
+                Confirm
+              </button></td>
+            </tr>
+          </tbody>
+        </table>
+       
+        
+        
+      </div>
+    </div>
+  </div>
+  

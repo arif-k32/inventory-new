@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   {
@@ -12,14 +11,14 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./login/login.module').then(
+      import('./modules/Authentication/login/login.module').then(
         (m) => m.LoginModule
       ),
   },
   {
     path: 'register',
     loadChildren: () =>
-      import('./register/register.modulle').then(
+      import('./modules/Authentication/register/register.module').then(
         (m) => m.RegisterModule
       ),
   },
@@ -27,14 +26,17 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./authentication/dashboard.module').then(
+      import('./modules/Dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
     
   },
   {
     path: '**',
-    component: PagenotfoundComponent,
+    loadChildren: () =>
+      import('./modules/Error/page-not-found/page-not-found.module').then(
+        (m) => m.PageNotFoundModule
+      ),
   },
 ];
 
