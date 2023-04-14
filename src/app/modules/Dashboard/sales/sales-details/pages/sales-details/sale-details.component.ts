@@ -5,7 +5,7 @@ import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service
 
 @Component({
   selector: 'app-sale',
-  templateUrl: './sale.component.html',
+  templateUrl: './sale-details.component.html',
 })
 
 export class SaleComponent implements OnInit {

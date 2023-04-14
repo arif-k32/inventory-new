@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientsComponent } from '@clients/pages/clients/clients.component';
-import { OverviewComponent } from 'src/app/modules/Dashboard/pages/overview/overview.component';
-import { ProductsComponent } from '@products/products.component';
-import { AllsalesComponent } from '@sales/all-sales/all-sales.component';
-import { NewquicksaleComponent } from '@sales/new-quick-sale/new-quick-sale.component';
-import { NewSaleComponent } from '@sales/new-sale/new-sale.component';
-import { DetailsComponent } from '@sales/quick-sale/details/details.component';
-import { QuicksaleComponent } from '@sales/quick-sale/quick-sale.component';
-import { SaleComponent } from '@sales/sale/sale.component';
-import { SalesComponent } from '@sales/sales.component';
+import { ClientsComponent } from 'src/app/modules/Dashboard/clients/pages/clients/clients.component';
+import { OverviewComponent } from 'src/app/modules/Dashboard/overview/pages/overview/overview.component';
+import { ProductsComponent } from 'src/app/modules/Dashboard/products/pages/products/products.component';
+import { AllsalesComponent } from 'src/app/modules/Dashboard/sales/all-sales/pages/all-sales/all-sales.component';
+import { NewquicksaleComponent } from 'src/app/modules/Dashboard/sales/new-quick-sale/pages/new-quick-sale/new-quick-sale.component';
+import { NewSaleComponent } from 'src/app/modules/Dashboard/sales/new-sale/pages/new-sale/new-sale.component';
+import { DetailsComponent } from 'src/app/modules/Dashboard/sales/quick-sale-details/pages/quick-sale-details/quick-sale-details.component';
+import { QuicksaleComponent } from 'src/app/modules/Dashboard/sales/quick-sale/pages/quick-sales/quick-sales.component';
+import { SaleComponent } from 'src/app/modules/Dashboard/sales/sales-details/pages/sales-details/sale-details.component';
+import { SalesComponent } from 'src/app/modules/Dashboard/sales/sales-navigation/components/sales-navigation/sales.component';
 import { DashboardGuard } from 'src/app/Core/Authentication/Guards/dashboard.guard';
-import { RootComponent } from 'src/app/authentication/dashboard2/dashboard/root/root.component';
+import { RootComponent } from 'src/app/modules/Dashboard/dashboard-navigation/components/dashboard-navigation.component';
 
 const routes: Routes = [
   {

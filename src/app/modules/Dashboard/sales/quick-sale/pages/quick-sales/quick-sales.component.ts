@@ -5,7 +5,7 @@ import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service
 
 @Component({
   selector: 'app-quicksale',
-  templateUrl: './quick-sale.component.html',
+  templateUrl: './quick-sales.component.html',
 })
 export class QuicksaleComponent {
   public quickSales$!:Observable<any>;

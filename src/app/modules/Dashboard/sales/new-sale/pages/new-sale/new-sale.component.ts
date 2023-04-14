@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataStorageService } from '@sales/new-sale/services/data-storage.service';
+import { DataStorageService } from '../../services/data-storage.service';
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
 import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
 import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';

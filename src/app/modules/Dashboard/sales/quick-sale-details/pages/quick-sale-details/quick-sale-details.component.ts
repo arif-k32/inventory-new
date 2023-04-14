@@ -4,7 +4,7 @@ import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service
 
 @Component({
   selector: 'app-details',
-  templateUrl: './details.component.html',
+  templateUrl: './quick-sale-details.component.html',
 })
 export class DetailsComponent {
   public sales!:any;
