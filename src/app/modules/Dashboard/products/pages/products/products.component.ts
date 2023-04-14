@@ -1,11 +1,11 @@
 import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddDataResponseService } from 'src/app/Shared/Services/add-data-response.service';
-import { Toastr } from 'src/app/Shared/Services/toastr.service';
-import { Observable, Subscription, map, of } from 'rxjs';
-import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
-import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
+import { ProductsHttpSerice } from '@api/Products/products-http.service';
+import { IProduct } from '@interfaces/products/products.interface';
+import { AddDataResponseService } from '@services/add-data-response.service';
+import { Toastr } from '@services/toastr.service';
+import { Observable, Subscription, map } from 'rxjs';
 
 @Component({
   selector: 'app-products',

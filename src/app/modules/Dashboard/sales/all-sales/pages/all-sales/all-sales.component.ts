@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
-import { ISale } from 'src/app/Shared/Interfaces/sales/sales.interface';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
+import { ISale } from '@interfaces/sales/sales.interface';
 
 @Component({
   selector: 'app-allsales',

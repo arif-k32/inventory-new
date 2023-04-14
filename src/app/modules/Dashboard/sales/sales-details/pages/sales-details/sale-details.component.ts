@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { ProductsHttpSerice } from '@api/Products/products-http.service';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
 
 @Component({
   selector: 'app-sale',

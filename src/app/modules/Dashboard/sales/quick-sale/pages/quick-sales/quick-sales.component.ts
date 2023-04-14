@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
-import { IQuickSale } from 'src/app/Shared/Interfaces/sales/sales.interface';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
+import { IQuickSale } from '@interfaces/sales/sales.interface';
 
 @Component({
   selector: 'app-quicksale',

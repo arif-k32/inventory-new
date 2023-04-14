@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AddDataResponseService } from 'src/app/Shared/Services/add-data-response.service';
-import { Toastr } from 'src/app/Shared/Services/toastr.service';
+import { AddDataResponseService } from '@services/add-data-response.service';
+import { Toastr } from '@services/toastr.service';
 import { Observable, Subscription } from 'rxjs';
-import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
-import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
+import { ClientsHttpService } from '@api/Clients/clients-http.service';
+import { IClient } from '@interfaces/clients/clients.interface';
 
 @Component({
   selector: 'app-clients',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
 
 @Component({
   selector: 'app-overview',

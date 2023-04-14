@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataStorageService } from '../../services/data-storage.service';
-import { Toastr } from 'src/app/Shared/Services/toastr.service';
+import { Toastr } from '@services/toastr.service';
 import { ClientsHttpService } from '@api/Clients/clients-http.service';
 import { ProductsHttpSerice } from '@api/Products/products-http.service';
 import { SalesHttpService } from '@api/Sales/sales-http.service';
-import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
-import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
+import { IClient } from '@interfaces/clients/clients.interface';
+import { IProduct } from '@interfaces/products/products.interface';
 
 @Component({
   selector: 'app-new-sale',

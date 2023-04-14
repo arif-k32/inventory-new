@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AddDataResponseService } from 'src/app/Shared/Services/add-data-response.service';
-import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
+import { AddDataResponseService } from '@services/add-data-response.service';
+import { ProductsHttpSerice } from '@api/Products/products-http.service';
 
 @Component({
   selector: 'app-addproduct',

@@ -24,11 +24,12 @@
       "dom"
     ],
     "paths": {
-      "@sales/*":["src/app/authentication/dashboard2/dashboard/sales/*"],
-      "@clients/*":["src/app/authentication/dashboard2/dashboard/clients/*"],
-      "@overview/*":["src/app/authentication/dashboard2/dashboard/overview/*"],
-      "@products/*":["src/app/authentication/dashboard2/dashboard/products/*"],
-      "@services/*":["src/app/services/*"],
+      "@sales/*":["src/app/modules/Dashboard/sales/*"],
+      "@clients/*":["src/app/modules/Dashboard/clients/*"],
+      "@overview/*":["src/app/modules/Dashboard/overview/*"],
+      "@products/*":["src/app/modules/Dashboard/products/*"],
+      "@services/*":["src/app/Shared/Services/*"],
+      "@interfaces/*":["src/app/Shared/Interfaces/*"],
       "@api/*":["src/app/Core/Http/Api/*"]
     }
   },

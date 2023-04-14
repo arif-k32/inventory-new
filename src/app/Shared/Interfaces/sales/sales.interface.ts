@@ -1,4 +1,4 @@
-import { IClient } from "../clients/clients.interface";
+import { IClient } from "@interfaces/clients/clients.interface";
 
 export interface ISale {
 

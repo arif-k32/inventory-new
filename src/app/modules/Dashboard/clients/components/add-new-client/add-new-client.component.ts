@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddDataResponseService } from 'src/app/Shared/Services/add-data-response.service';
-import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
+import { AddDataResponseService } from '@services/add-data-response.service';
+import { ClientsHttpService } from '@api/Clients/clients-http.service';
 
 @Component({
   selector: 'app-addnewclient',
