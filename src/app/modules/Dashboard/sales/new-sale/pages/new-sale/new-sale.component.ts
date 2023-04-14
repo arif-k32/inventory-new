@@ -3,9 +3,9 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataStorageService } from '../../services/data-storage.service';
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
-import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
-import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { ClientsHttpService } from '@api/Clients/clients-http.service';
+import { ProductsHttpSerice } from '@api/Products/products-http.service';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
 import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
 import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
 
 @Component({
   selector: 'app-details',

@@ -29,6 +29,7 @@
       "@overview/*":["src/app/authentication/dashboard2/dashboard/overview/*"],
       "@products/*":["src/app/authentication/dashboard2/dashboard/products/*"],
       "@services/*":["src/app/services/*"],
+      "@api/*":["src/app/Core/Http/Api/*"]
     }
   },
   "angularCompilerOptions": {

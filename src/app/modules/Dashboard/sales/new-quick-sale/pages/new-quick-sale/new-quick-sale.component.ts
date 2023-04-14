@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
-import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
-import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { ProductsHttpSerice } from '@api/Products/products-http.service';
+import { SalesHttpService } from '@api/Sales/sales-http.service';
 import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 
