@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { IQuickSale } from 'src/app/Shared/Interfaces/sales/sales.interface';
 
 @Component({
   selector: 'app-quicksale',
@@ -24,14 +25,14 @@ export class QuicksaleComponent {
         this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
   }
 
-  public getQuickSales(){
+  public getQuickSales():void{
         this.quickSales$= this.http.getAllQuickSales();
-        this.quickSales$.subscribe((sales:any)=>{
+        this.quickSales$.subscribe((sales:IQuickSale[])=>{
                                         this.numberOfSales = sales.length;
                                         this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
                                     })
   }
-  public goToQuickSale(id:number){
+  public goToQuickSale(id:number):void{
       this.router.navigate(['/dashboard/sales/newsale'],{queryParams:{quick_sale:id}})
 
   }

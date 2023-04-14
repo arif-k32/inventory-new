@@ -6,6 +6,8 @@ import { Toastr } from 'src/app/Shared/Services/toastr.service';
 import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
 import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
 import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
+import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 @Component({
   selector: 'app-new-sale',
@@ -28,12 +30,12 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   public searchingProducts = false;
   
 
-  public searchClientsResult: any[] = [];
-  public selectedClient!: any;
-  public searchProdutsResult: any[] = [];
+  public searchClientsResult: IClient[] = [];
+  public selectedClient!: IClient|null;
+  public searchProdutsResult: IProduct[] = [];
 
-  public clientsList: any[] = [];
-  public productsList: any[] = [];
+  public clientsList: IClient[] = [];
+  public productsList: IProduct[] = [];
 
   constructor(
         private readonly http: SalesHttpService,
@@ -48,19 +50,19 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   get selectedProducts(): FormArray {
       return this.salesForm.get('products') as FormArray;
   }
-  public addClient(client: any) {
+  public addClient(client: IClient):void {
       this.salesForm.controls['client_id'].setValue(client.id);
       this.searchClientsResult = [];
       this.searchingClients = false;
       this.selectedClient = client;
   }
-  public addNewClientRedirect(){
+  public addNewClientRedirect():void{
         this.router.navigate(['/dashboard/clients'],{queryParams:{source:'newsale'}})
   }
 
 
 
-  public addProduct(product: any, quantity: string) {
+  public addProduct(product: IProduct, quantity: string):void {
       if (Number(quantity) > product.stock) {
             this.toastr.showtoast('error', 'Quantity should be less than stock');
             return;
@@ -77,8 +79,8 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     
   }
 
-  public removeSelectedClient() {
-    this.selectedClient = '';
+  public removeSelectedClient():void {
+    this.selectedClient = null;
     this.searchClients.controls['searchInput'].setValue('');
     this.searchProducts.controls['searchInput'].setValue('');
     this.salesForm.reset();
@@ -86,25 +88,25 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     this.searchingClients = true;
   }
 
-  public removeSelectedProducts(product_id: number) {
+  public removeSelectedProducts(product_id: number):void {
         const index = this.selectedProducts.controls.findIndex(  (x)   =>   x.get('id')?.value === product_id   );
         if (index >= 0) 
               this.selectedProducts.removeAt(index);
   }
-  public getTotalOrderQuantity(){
+  public getTotalOrderQuantity():number{
     let total =0;
     for (const product of this.selectedProducts.controls)
       total+=product.get('quantity')?.value;
     return total;
   }
-  public getTotalOrderPrice(){
+  public getTotalOrderPrice():number{
     let price=0;
     for(const product of this.selectedProducts.controls)
       price+=( product.get('price')?.value * product.get('quantity')?.value);
     return price;
   }
 
-  public confirmSale() {
+  public confirmSale():void {
     
     if (!this.salesForm.valid){
       for(let product  of this.selectedProducts.controls)
@@ -120,14 +122,14 @@ export class NewSaleComponent implements OnInit, OnDestroy {
                                                       this.router.navigate(['dashboard/sales']);
                                                     });
   }
-  public onSearchClients(value:any){
+  public onSearchClients(value:string):void{
     if (value == ''){
        this.searchClientsResult = [];
        this.searchingClients=false
     }
     else{
             const temp_searchClientsResult = this.clientsList.filter(
-                      (client: any) =>client.first_name.toLowerCase().includes(value.toLowerCase()) ||
+                      (client: IClient) =>client.first_name.toLowerCase().includes(value.toLowerCase()) ||
                                                   client.last_name.toLowerCase().includes(value.toLowerCase()));
             if(this.selectedClient){
                  this.searchClientsResult=temp_searchClientsResult.filter(client=>  client.id != this.salesForm.value.client_id);
@@ -140,13 +142,13 @@ export class NewSaleComponent implements OnInit, OnDestroy {
             
       }
   }
-  public onSearchProducts(value:any){
+  public onSearchProducts(value:string):void{
     if (value == ''){
           this.searchProdutsResult = [];
           this.searchingProducts=false;
       }
     else{
-        let temp_searchProdutsResult=this.productsList.filter( (product: any) =>product.name.toLowerCase().includes(value.toLowerCase()) &&
+        let temp_searchProdutsResult=this.productsList.filter( (product: IProduct) =>product.name.toLowerCase().includes(value.toLowerCase()) &&
                                                                                   product.active &&
                                                                                   product.stock > 0
                                                                               );
@@ -163,7 +165,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
          
     }
   }
-  public resumeData(){
+  public resumeData():void{
     const previous_state =this.dataStorage.newSale_state;
     if(previous_state?.selectedClient || previous_state?.salesForm?.get('products')){
                 this.salesForm=previous_state.salesForm;
@@ -176,7 +178,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   public onQuickSale(params:{[source:string]:string}){
             if(params['quick_sale']){
               this.salesForm.reset();
-              this.selectedClient='';
+              this.selectedClient=null;
               this.selectedProducts.clear();
               this.http.getQuickSaleById(Number(params['quick_sale'])).subscribe((quickSale:any)=>{
                                                                           for(let product of quickSale.products){

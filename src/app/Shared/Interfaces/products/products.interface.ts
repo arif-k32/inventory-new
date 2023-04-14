@@ -1,4 +1,4 @@
-export interface IProducts {
+export interface IProduct {
     active:boolean,
     id:number,
     name:string,

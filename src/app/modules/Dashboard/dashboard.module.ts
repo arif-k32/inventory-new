@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/Shared/shared.module';
 import { AddnewclientComponent } from 'src/app/modules/Dashboard/clients/components/add-new-client/add-new-client.component';
 import { ClientsComponent } from 'src/app/modules/Dashboard/clients/pages/clients/clients.component';
+import { RootComponent } from 'src/app/modules/Dashboard/dashboard-navigation/components/dashboard-navigation.component';
 import { OverviewComponent } from 'src/app/modules/Dashboard/overview/pages/overview/overview.component';
 import { AddproductComponent } from 'src/app/modules/Dashboard/products/components/add-product/add-product.component';
 import { ProductsComponent } from 'src/app/modules/Dashboard/products/pages/products/products.component';
@@ -14,16 +17,11 @@ import { DetailsComponent } from 'src/app/modules/Dashboard/sales/quick-sale-det
 import { QuicksaleComponent } from 'src/app/modules/Dashboard/sales/quick-sale/pages/quick-sales/quick-sales.component';
 import { SaleComponent } from 'src/app/modules/Dashboard/sales/sales-details/pages/sales-details/sale-details.component';
 import { SalesComponent } from 'src/app/modules/Dashboard/sales/sales-navigation/components/sales-navigation/sales.component';
-import { PaginationPipe } from 'src/app/Shared/Pipes/pagination.pipe';
-import { PaginationComponent } from 'src/app/Shared/Components/pagination/pagination.component';
-import { RootComponent } from 'src/app/modules/Dashboard/dashboard-navigation/components/dashboard-navigation.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [
     ClientsComponent,
-    PaginationComponent,
-    PaginationPipe,
     AddproductComponent,
     ProductsComponent,
     AddnewclientComponent,
@@ -40,9 +38,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
 })
 export class DashboardModule {}

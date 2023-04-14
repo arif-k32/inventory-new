@@ -26,7 +26,7 @@ export class AddnewclientComponent {
           private readonly router:Router
   ) {}
 
-  public addClient() {
+  public addClient():void {
           if (this.newClientForm.valid) {
                   this.http.registerClient(this.newClientForm.value).subscribe((resp: any) => {
                                                                         this.newClientForm.reset();

@@ -20,7 +20,7 @@ export class AddproductComponent {
                                           active: new FormControl(false, Validators.required),
                                         });
 
-  public newproductf() {
+  public newproductf():void {
               if (this.newproduct.valid)
                 this.http.createProduct(this.newproduct.value).subscribe((res) => {
                                                                   this.newproduct.reset();

@@ -5,38 +5,39 @@ import { AddDataResponseService } from 'src/app/Shared/Services/add-data-respons
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
+import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
 })
 export class ProductsComponent implements OnInit{
-  public productsObservable$!: Observable<any[]>;
-  public productsList!:any[];
+  public productsObservable$!: Observable<IProduct[]>;
+  public productsList!:IProduct[];
   public productsForm: FormGroup = new FormGroup({});
 
   public filterFn: Function[] = [   ///// contains all filter methods
-                                  (products: any) => {   ///filter by active
-                                    let filteredProducts: any[] = [];
+                                  (products: IProduct[]):IProduct[] => {   ///filter by active
+                                    let filteredProducts: IProduct[] = [];
                                     if (this.filters_active)
                                       filteredProducts = products.filter(
-                                        (product: any) =>
+                                        (product: IProduct) =>
                                           product.active.toString() === this.filters_active
                                       );
                                     else filteredProducts = products;
                                     return filteredProducts;
                                   },
 
-                                  (products: any) => {   ///filter by stock
-                                    let filteredProducts: any[] = [];
+                                  (products: IProduct[]):IProduct[] => {   ///filter by stock
+                                    let filteredProducts: IProduct[] = [];
                                     if (this.filters_stock)
                                       if (this.filters_stock == '0')
                                         filteredProducts = products.filter(
-                                          (product: any) => product.stock == 0
+                                          (product: IProduct) => product.stock == 0
                                         );
                                       else
                                         filteredProducts = products.filter(
-                                          (product: any) => product.stock > 0
+                                          (product: IProduct) => product.stock > 0
                                         );
                                     else filteredProducts = products;
                                     return filteredProducts;
@@ -60,22 +61,24 @@ export class ProductsComponent implements OnInit{
           private readonly addProductSubject: AddDataResponseService,
   ) {}
 
-  public pagination(updatedPagination: { currentPage: number; pageSize: number }) {
+  public pagination(updatedPagination: { currentPage: number; pageSize: number }):void {
         this.currentPage = updatedPagination.currentPage;
         this.pageSize = updatedPagination.pageSize;
         this.numberOfPages = Math.ceil(this.numberOfProducts / this.pageSize);
   }
 
-  public setfiltersActive(activeDropdown: any) {   ///will be called on change in dropdown
+  public setfiltersActive(activeDropdown: Event):void {   ///will be called on change in dropdown
+        this.filters_active=(activeDropdown.target as HTMLSelectElement).value;
         this.currentPage = 1;
         this.getdata();
   }
-  public setfiltersStock(stockDropdown: any) {
+  public setfiltersStock(stockDropdown: Event):void {
+        this.filters_stock=(stockDropdown.target as HTMLSelectElement).value;
         this.currentPage = 1;
         this.getdata();
   }
 
-  public showAddProduct() {
+  public showAddProduct():void {
         this.addProduct = !this.addProduct;
   }
 
@@ -83,7 +86,7 @@ export class ProductsComponent implements OnInit{
                                                                                                 this.addProductResponse(response);
                                                                                               });
 
-  public addProductResponse(response: string) {
+  public addProductResponse(response: string):void {
         switch (response) {
               case 'success':
                     this.toastr.showtoast('success', 'product added');
@@ -97,8 +100,8 @@ export class ProductsComponent implements OnInit{
         this.getdata();
   }
 
-  public switch(product: any, checkbox: any) {  /// sets product active or invactive
-        if (checkbox.target.checked == true) {
+  public switch(product: IProduct, checkbox: Event):void {  /// sets product active or invactive
+        if ((checkbox.target as HTMLInputElement).checked == true) {
               this.productsForm.controls[product.id].get('price')?.enable();
               this.productsForm.controls[product.id].get('stock')?.enable();
               this.http.updateProductActive(product.id, true).subscribe();
@@ -110,38 +113,36 @@ export class ProductsComponent implements OnInit{
     }
   }
 
-  public setPriceInputFieldOnChange(product: any, event: any) {   // converts number to currency in input field
+  public setPriceInputFieldOnChange(product: IProduct, event: Event):void {   // converts number to currency in input field
         const newvalue = this.getCurrencyFromNumber(
-          this.getNumberFromText(event.target.value)
+          this.getNumberFromText((event.target as HTMLInputElement).value)
         );
         this.productsForm.controls[product.id].get('price')?.setValue(newvalue);
   }
 
-  public delete(id: number) {
-        this.http.deleteProduct(id).subscribe((respose) => {
+  public delete(id: number):void {
+        this.http.deleteProduct(id).subscribe(() => {
                                       this.toastr.showtoast('success', 'deleted');
-                                      this.http.getProducts().subscribe((response: any) => {
-                                                                this.productsObservable$ = of(response);
-                                                              });
+                                      this.getdata();
                                     });
   }
 
-  public reloadProducts(){
+  public reloadProducts():void{
     this.getdata();
 
   }
 
-  private getdata() {    /// retrieves products from server
+  private getdata():void {    /// retrieves products from server
     this.productsObservable$ = this.http.getProducts().pipe( map((products: any) => {
                                                             return this.checkfilters(products);
                                                           })
                                                         );
 
-    this.productsObservable$.subscribe((resp: any) => {
+    this.productsObservable$.subscribe((resp: IProduct[]) => {
                                 this.numberOfProducts = resp.length;
                                 this.numberOfPages = Math.ceil(resp.length / this.pageSize);
                                 this.productsForm=new FormGroup({});
-                                resp.map((product: any) => {
+                                resp.map((product: IProduct) => {
                                                   this.productsForm.addControl(
                                                           `${product.id}`, new FormGroup({
                                                                                   switch: new FormControl(product.active),
@@ -163,39 +164,41 @@ export class ProductsComponent implements OnInit{
   }
  
 
-  private checkfilters(products: any) {
-          for (const filter of this.filterFn) products = filter(products);
+  private checkfilters(products: IProduct[]):IProduct[] {
+          
+          for (const filter of this.filterFn)
+             products = filter(products);
           return products;
   }
 
-  public updateProduct(product: any) {
+  public updateProduct(product: IProduct):void {
         const updatedProduct = {
                                 ...product,
                                 price: this.getNumberFromText(this.productsForm.controls[product.id].value.price ),
                                 stock: this.productsForm.controls[product.id].value.stock,
                               };
 
-        this.http.updateProduct(product.id, updatedProduct).subscribe((response) => {
+        this.http.updateProduct( updatedProduct).subscribe(() => {
                                                               this.toastr.showtoast('success', 'update success');
                                                               this.getdata();
                                                             });
   }
 
-  private getNumberFromText(text: string) {
+  private getNumberFromText(text: string):number {
       return Number(text.replace(/[^0-9.-]+/g, ''));
   }
-  private getCurrencyFromNumber(value: any) {
+  private getCurrencyFromNumber(value: number) :string{
      return formatCurrency(value, 'en-US', '$');
   }
 
-  public checkIfProductUpdated(product: any) {   //toggles update button on or off
+  public checkIfProductUpdated(product: IProduct):boolean {   //toggles update button on or off
           const { price, stock } = this.productsForm.controls[product.id].value;
           if (!this.productsForm.controls[product.id].get('switch')?.value)
               return false;
           return !(this.getNumberFromText(price) == product.price && stock == product.stock);
   }
 
-  public updateEnableOrDisable(product: any) {    //toggles update button on or off
+  public updateEnableOrDisable(product: IProduct):boolean {    //toggles update button on or off
       if (this.productsForm.controls[product.id].get('switch')?.value)
           if (this.checkIfProductUpdated(product))
                return false;

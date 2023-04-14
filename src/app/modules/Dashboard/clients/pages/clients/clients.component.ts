@@ -5,6 +5,7 @@ import { AddDataResponseService } from 'src/app/Shared/Services/add-data-respons
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
 import { Observable, Subscription } from 'rxjs';
 import { ClientsHttpService } from 'src/app/Core/Http/Api/Clients/clients-http.service';
+import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
 
 @Component({
   selector: 'app-clients',
@@ -20,7 +21,7 @@ export class ClientsComponent implements OnInit {
 
   editMode = false;
   updateClientForm = new FormGroup({
-                                    id: new FormControl(''),
+                                    id: new FormControl(0),
                                     first_name: new FormControl('', Validators.required),
                                     last_name: new FormControl('', Validators.required),
                                     address: new FormControl('', Validators.required),
@@ -49,7 +50,7 @@ export class ClientsComponent implements OnInit {
                                                                                             this.addClientResponse(response);
                                                                                           });
 
-  public addClientResponse(response: string) {
+  public addClientResponse(response: string):void {
               switch (response) {
                     case 'success':
                           this.toastr.showtoast(response, 'client added successfully');
@@ -64,7 +65,7 @@ export class ClientsComponent implements OnInit {
   public cancelEditClient():void {
       this.editMode = false;
   }
-  public editClient(client: any):void {
+  public editClient(client: IClient):void {
         this.updateClientForm.setValue(client);
         this.editMode = true;
   }

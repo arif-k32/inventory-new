@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { ISale } from 'src/app/Shared/Interfaces/sales/sales.interface';
 
 @Component({
   selector: 'app-allsales',
@@ -19,15 +20,15 @@ export class AllsalesComponent implements OnInit {
 
   constructor(private readonly http:SalesHttpService){}
 
-  public pagination(updatedPagination: { currentPage: number; pageSize: number }) {
+  public pagination(updatedPagination: { currentPage: number; pageSize: number }):void {
                 this.currentPage = updatedPagination.currentPage;
                 this.pageSize = updatedPagination.pageSize;
                 this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
   }
   
-  public getSales(){
+  public getSales():void{
     this.sales$= this.http.getAllSales();
-    this.sales$.subscribe((sales:any)=>{
+    this.sales$.subscribe((sales:ISale[])=>{
                                     this.numberOfSales = sales.length;
                                     this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
                                 })

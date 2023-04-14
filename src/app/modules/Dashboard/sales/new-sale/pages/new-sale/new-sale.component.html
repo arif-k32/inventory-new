@@ -144,13 +144,13 @@
       </div>
       <table class="divide-y min-w-full" *ngIf="selectedClient">
         <tbody class="bg-slate-400">
-          <td>ID: {{ selectedClient?.id }}</td>
+          <td>ID: {{ selectedClient.id }}</td>
           <td>
             Name:
-            {{ selectedClient?.first_name + " " + selectedClient?.last_name }}
+            {{ selectedClient.first_name + " " + selectedClient.last_name }}
           </td>
-          <td>Address: {{ selectedClient?.address }}</td>
-          <td>Phone: {{selectedClient?.phone}}</td>
+          <td>Address: {{ selectedClient.address }}</td>
+          <td>Phone: {{selectedClient.phone}}</td>
           <td class="py-1">
             <button
               (click)="removeSelectedClient()"

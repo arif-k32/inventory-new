@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Toastr } from 'src/app/Shared/Services/toastr.service';
 import { ProductsHttpSerice } from 'src/app/Core/Http/Api/Products/products-http.service';
 import { SalesHttpService } from 'src/app/Core/Http/Api/Sales/sales-http.service';
+import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 
 @Component({
@@ -22,14 +23,14 @@ export class NewquicksaleComponent {
                                             products: new FormArray([],Validators.required),
                                           });
 
-  public products_view:any[]=[];
+  public products_view:IProduct[]=[];
 
   public searchingProducts = false;
   
   public quickSaleName:string='';
-  public searchProdutsResult: any[] = [];
+  public searchProdutsResult: IProduct[] = [];
 
-  public productsList: any[] = [];
+  public productsList: IProduct[] = [];
 
   constructor(
         private readonly http: SalesHttpService,
@@ -49,7 +50,7 @@ export class NewquicksaleComponent {
   }
 
 
-  public addProduct(product: any) {
+  public addProduct(product: IProduct):void {
           const id :FormControl = new FormControl(product.id)
           this.products_view.push(product)
           
@@ -57,7 +58,7 @@ export class NewquicksaleComponent {
           this.searchProdutsResult = this.searchProdutsResult.filter((obj) => obj.id !== product.id);
     
   }
-  public removeQuickSaleName(){
+  public removeQuickSaleName():void{
           this.quickSaleName='';
           this.quickSaleForm.get('name')?.reset();
           this.selectedProducts.clear();
@@ -65,7 +66,7 @@ export class NewquicksaleComponent {
   }
  
 
-  public removeSelectedProducts(product_id: number) {
+  public removeSelectedProducts(product_id: number):void {
         const index = this.selectedProducts.controls.findIndex(  (x)   =>   x.value === product_id   );
         if (index >= 0) 
               this.selectedProducts.removeAt(index);
@@ -75,7 +76,7 @@ export class NewquicksaleComponent {
 
   
 
-  public confirmSale() {
+  public confirmSale():void {
     
         if(!this.quickSaleForm.valid){
           this.toastr.showtoast('error','Add name and products');
@@ -91,13 +92,13 @@ export class NewquicksaleComponent {
                                                        });
   }
   
-  public onSearchProducts(value:any){
+  public onSearchProducts(value:string){
     if (value == ''){
             this.searchProdutsResult = [];
             this.searchingProducts=false;
       }
     else{
-            let temp_searchProdutsResult=this.productsList.filter( (product: any) =>product.name.toLowerCase().includes(value.toLowerCase()) &&
+            let temp_searchProdutsResult=this.productsList.filter( (product: IProduct) =>product.name.toLowerCase().includes(value.toLowerCase()) &&
                                                                                     product.active &&
                                                                                     product.stock > 0
                                                                                 );

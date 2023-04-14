@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class ProductsHttpSerice {
       return this.http.delete(`${this.url}/products/${id}`);
   }
   
-  public updateProduct(id: string, details: any) {
+  public updateProduct(details: IProduct) {
       return this.http.put(`${this.url}/products`, details);
   }
   public getProducts() {
@@ -25,7 +26,7 @@ export class ProductsHttpSerice {
   public updateProductActive(id: number, state: boolean) {
       return this.http.put(`${this.url}/products/status/${id}?status=${state}`, {});
   }
-  public createProduct(product: any) {
+  public createProduct(product: IProduct) {
       return this.http.post(`${this.url}/products`, product);
   }
 
