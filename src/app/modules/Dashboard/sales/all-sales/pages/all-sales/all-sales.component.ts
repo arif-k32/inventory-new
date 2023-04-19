@@ -8,7 +8,7 @@ import { ISale } from '@interfaces/sales/sales.interface';
   templateUrl: './all-sales.component.html',
 })
 export class AllsalesComponent implements OnInit {
-  public sales$!:Observable<any>;
+  public sales$!:Observable<ISale[]>;
   
   
   public currentPage=1;

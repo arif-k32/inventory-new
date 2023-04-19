@@ -16,6 +16,8 @@ export interface ISale {
     total:number
 
 }
+
+
 export interface IQuickSale {
     created_at:string,
     id:number,

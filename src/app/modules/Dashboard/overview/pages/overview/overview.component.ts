@@ -5,6 +5,11 @@ import { SalesHttpService } from '@api/Sales/sales-http.service';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
+  styles: [`
+              ::-webkit-scrollbar {
+                display: none;
+              }
+            `]
 })
 export class OverviewComponent implements OnInit {
 

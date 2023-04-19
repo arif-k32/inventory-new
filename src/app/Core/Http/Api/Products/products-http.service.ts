@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 @Injectable({
@@ -20,8 +21,8 @@ export class ProductsHttpSerice {
   public updateProduct(details: IProduct) {
       return this.http.put(`${this.url}/products`, details);
   }
-  public getProducts() {
-      return this.http.get(`${this.url}/products`);
+  public getProducts():Observable<IProduct[]> {
+      return this.http.get<IProduct[]>(`${this.url}/products`);
   }
   public updateProductActive(id: number, state: boolean) {
       return this.http.put(`${this.url}/products/status/${id}?status=${state}`, {});

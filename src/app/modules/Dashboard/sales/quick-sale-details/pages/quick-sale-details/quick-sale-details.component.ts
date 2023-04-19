@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SalesHttpService } from '@api/Sales/sales-http.service';
+import { IQuickSale } from '@interfaces/sales/sales.interface';
 
 @Component({
   selector: 'app-details',
   templateUrl: './quick-sale-details.component.html',
 })
 export class DetailsComponent {
-  public sales!:any;
+  public sales!:IQuickSale;
 
   constructor( private readonly route: ActivatedRoute, private readonly http: SalesHttpService) {}
 

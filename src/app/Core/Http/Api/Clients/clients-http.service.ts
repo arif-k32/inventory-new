@@ -11,8 +11,8 @@ export class ClientsHttpService {
   public url: string = 'https://api-sales-app.josetovar.dev';
   constructor(private http: HttpClient) {}
 
-  public getAllClients() {
-      return this.http.get(`${this.url}/clients`);
+  public getAllClients():Observable<IClient[]> {
+      return this.http.get<IClient[]>(`${this.url}/clients`);
   }
   public registerClient(client: any) {
       return this.http.post(`${this.url}/clients`, client);

@@ -20,10 +20,8 @@
           
           <input
             #quickSaleName
-            placeholder="Enter quick sale name"
+            placeholder="Set quick sale name"
             type="text"
-            
-           
             class="py-3 px-4 block border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-white"
           />
           <button
@@ -155,11 +153,11 @@
               
               
               <td><button
-                (click)="confirmSale()"
+                (click)="finalSubmit()"
                 type="button"
                 class="py-2 mr-2 mt-1 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
               >
-                Confirm
+                {{getFinalSubmitButton()}}
               </button></td>
             </tr>
           </tbody>

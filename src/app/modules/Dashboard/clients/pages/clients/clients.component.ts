@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ClientsHttpService } from '@api/Clients/clients-http.service';
+import { IClient } from '@interfaces/clients/clients.interface';
 import { AddDataResponseService } from '@services/add-data-response.service';
 import { Toastr } from '@services/toastr.service';
 import { Observable, Subscription } from 'rxjs';
-import { ClientsHttpService } from '@api/Clients/clients-http.service';
-import { IClient } from '@interfaces/clients/clients.interface';
 
 @Component({
   selector: 'app-clients',
@@ -13,7 +13,7 @@ import { IClient } from '@interfaces/clients/clients.interface';
 })
 export class ClientsComponent implements OnInit {
 
-  public clients$!: Observable<any>;
+  public clients$!: Observable<IClient[]>;
   public currentPage = 1;
   public numberOfPages!: number;
   public numberOfClients!: number;
@@ -21,17 +21,17 @@ export class ClientsComponent implements OnInit {
 
   editMode = false;
   updateClientForm = new FormGroup({
-                                    id: new FormControl(0),
+                                    id:         new FormControl(0),
                                     first_name: new FormControl('', Validators.required),
-                                    last_name: new FormControl('', Validators.required),
-                                    address: new FormControl('', Validators.required),
-                                    city: new FormControl('', Validators.required),
-                                    state: new FormControl('', Validators.required),
-                                    country: new FormControl('', Validators.required),
-                                    phone: new FormControl('', Validators.required),
-                                    email: new FormControl('', Validators.required),
-                                    created_at: new FormControl('',Validators.required),
-                                    updated_at: new FormControl('',Validators.required)
+                                    last_name:  new FormControl('', Validators.required),
+                                    address:    new FormControl('', Validators.required),
+                                    city:       new FormControl('', Validators.required),
+                                    state:      new FormControl('', Validators.required),
+                                    country:    new FormControl('', Validators.required),
+                                    phone:      new FormControl('', Validators.required),
+                                    email:      new FormControl('', Validators.required),
+                                    created_at: new FormControl('', Validators.required),
+                                    updated_at: new FormControl('', Validators.required)
                                   });
   addClient = false;
 
@@ -100,10 +100,14 @@ export class ClientsComponent implements OnInit {
 
   private getClients():void {
         this.clients$ = this.http.getAllClients();
-        this.clients$.subscribe((clients: any) => {
+        this.clients$.subscribe((clients: IClient[]) => {
                         this.numberOfClients = clients.length;
                         this.numberOfPages = Math.ceil(this.numberOfClients / this.pageSize);
                       });
+  }
+
+  public importFiles(file:Event):void{
+      console.log((file.target as HTMLInputElement ).files)
   }
   
 
@@ -114,7 +118,6 @@ export class ClientsComponent implements OnInit {
                                 this.addClient=true;
                               }
                             })
-      
   }
  
 }
