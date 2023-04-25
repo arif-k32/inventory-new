@@ -36,8 +36,8 @@ export class NewquicksaleComponent {
   public productsList: IProduct[] = [];
 
   constructor(
-        private readonly http: SalesHttpService,
-        private readonly productsHttp:ProductsHttpSerice,
+        private readonly salesHttpService: SalesHttpService,
+        private readonly productsHttpService:ProductsHttpSerice,
         private readonly toastr: Toastr,
         private readonly router: Router,
         private readonly route:ActivatedRoute,
@@ -88,7 +88,7 @@ export class NewquicksaleComponent {
           this.toastr.showtoast('error','Add name and products');
           return;
         }
-        this.http.createQuickSale(this.quickSaleForm.value).subscribe((respo) => {
+        this.salesHttpService.createQuickSale(this.quickSaleForm.value).subscribe((respo) => {
                                                             this.toastr.showtoast('success', 'New quick-sale added');
                                                             this.quickSaleForm.reset();
                                                             this.selectedProducts.clear();
@@ -150,7 +150,7 @@ export class NewquicksaleComponent {
             this.toastr.showtoast('error','Add name and products');
             return;
       }
-      this.http.updateQuickSale(this.quickSaleForm.value).subscribe((response:any)=>{
+      this.salesHttpService.updateQuickSale(this.quickSaleForm.value).subscribe((response:any)=>{
                                                                   this.toastr.showtoast('success','quick sale updated');
                                                                   this.router.navigate(['/dashboard/sales/quick-sales']);
                                                             })
@@ -172,7 +172,7 @@ export class NewquicksaleComponent {
                   this.loadEditItems();
             }
           })
-     this.productsHttp.getProducts().subscribe((response: any) => (this.productsList = response));
+     this.productsHttpService.getProducts().subscribe((response: any) => (this.productsList = response));
      this.searchProducts.get('searchInput')?.valueChanges.subscribe((value) => {  this.onSearchProducts(value)  });
   }
   

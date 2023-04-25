@@ -37,7 +37,7 @@ export class ClientsComponent implements OnInit {
   public addClient = false;
 
   constructor(
-            private readonly http: ClientsHttpService,
+            private readonly clientsHttpService: ClientsHttpService,
             private readonly toastr: Toastr,
             private readonly addClientSubject: AddDataResponseService,
             private readonly route:ActivatedRoute,
@@ -72,7 +72,7 @@ export class ClientsComponent implements OnInit {
   }
   public updateClient():void {
         if (this.updateClientForm.valid) {
-              this.http.updateClient(this.updateClientForm.value).subscribe((response: any) => {
+              this.clientsHttpService.updateClient(this.updateClientForm.value).subscribe((response: any) => {
                                                                       this.editMode = false;
                                                                       this.toastr.showtoast('success', 'client updated');
                                                                       this.getClients();
@@ -83,7 +83,7 @@ export class ClientsComponent implements OnInit {
   }
 
   public deleteClient(clientid: number):void {
-        this.http.deleteClient(clientid).subscribe((response: any) => {
+        this.clientsHttpService.deleteClient(clientid).subscribe((response: any) => {
                                                 if (response) {
                                                       this.toastr.showtoast('success', 'client deleted');
                                                       this.getClients();
@@ -100,7 +100,7 @@ export class ClientsComponent implements OnInit {
   
 
   private getClients():void {
-        this.clients$ = this.http.getAllClients();
+        this.clients$ = this.clientsHttpService.getAllClients();
         this.clients$.subscribe((clients: IClient[]) => {
                         this.numberOfClients = clients.length;
                         this.numberOfPages = Math.ceil(this.numberOfClients / this.pageSize);
@@ -111,7 +111,7 @@ export class ClientsComponent implements OnInit {
       let file= event.target.files[0];
       let fileToUpload:FormData = new FormData();
       fileToUpload.append('csv', file, file.name)
-      this.http.imoportClients(fileToUpload).subscribe((response:boolean)=>{
+      this.clientsHttpService.imoportClients(fileToUpload).subscribe((response:boolean)=>{
                                                         if(response){   
                                                             this.toastr.showtoast('success','file uploaded successfully');
                                                             this.getClients();
@@ -119,7 +119,7 @@ export class ClientsComponent implements OnInit {
                                                       })
   }
   public exportFiles():void{
-      this.http.getAllClients().subscribe((response:IClient[])=>{
+      this.clientsHttpService.getAllClients().subscribe((response:IClient[])=>{
                                                       const csv = Papa.unparse(response);
                                                       const blob = new Blob([csv], {type:'text/csv'});
                                                       const url = window.URL.createObjectURL(blob);

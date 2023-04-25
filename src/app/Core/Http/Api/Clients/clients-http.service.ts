@@ -2,29 +2,29 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsHttpService {
 
-  public url: string = 'https://api-sales-app.josetovar.dev';
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   public getAllClients():Observable<IClient[]> {
-      return this.http.get<IClient[]>(`${this.url}/clients`);
+      return this.httpClient.get<IClient[]>(`${environment.api}/clients`);
   }
   public registerClient(client: any) {
-      return this.http.post(`${this.url}/clients`, client);
+      return this.httpClient.post(`${environment.api}/clients`, client);
   }
   public updateClient(client: any) {
-      return this.http.put(`${this.url}/clients`, client);
+      return this.httpClient.put(`${environment.api}/clients`, client);
   }
   deleteClient(clientId: number) {
-      return this.http.delete(`${this.url}/clients/${clientId}`);
+      return this.httpClient.delete(`${environment.api}/clients/${clientId}`);
   }
   imoportClients(file:FormData):Observable<boolean>{
-    return this.http.post<boolean>(`${this.url}/clients/import`,file).pipe(map( ()=>{return true;}));
+    return this.httpClient.post<boolean>(`${environment.api}/clients/import`,file).pipe(map( ()=>{return true;}));
   }
 
 }

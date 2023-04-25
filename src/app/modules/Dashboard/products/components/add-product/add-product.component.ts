@@ -9,7 +9,7 @@ import { ProductsHttpSerice } from '@api/Products/products-http.service';
 })
 export class AddproductComponent {
   constructor(
-          private readonly http: ProductsHttpSerice,
+          private readonly productsHttpService: ProductsHttpSerice,
           private readonly addProductSubject: AddDataResponseService
   ) {}
   public newproduct: FormGroup = new FormGroup({
@@ -22,7 +22,7 @@ export class AddproductComponent {
 
   public newproductf():void {
               if (this.newproduct.valid)
-                this.http.createProduct(this.newproduct.value).subscribe((res) => {
+                this.productsHttpService.createProduct(this.newproduct.value).subscribe((res) => {
                                                                   this.newproduct.reset();
                                                                   this.newproduct.get('active')?.setValue(false);
                                                                   this.addProductSubject.onAddProduct('success');

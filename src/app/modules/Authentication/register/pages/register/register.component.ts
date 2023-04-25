@@ -9,7 +9,7 @@ import { Toastr } from 'src/app/Shared/Services/toastr.service';
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  constructor(private readonly router: Router, private readonly http: AuthHttpService,private readonly toastr:Toastr ) {}
+  constructor(private readonly router: Router, private readonly authHttpService: AuthHttpService,private readonly toastr:Toastr ) {}
   public registerform = new FormGroup({
                                 id: new FormControl(0),
                                 first_name: new FormControl('', [Validators.required]),
@@ -23,7 +23,7 @@ export class RegisterComponent {
           this.toastr.showtoast('error','inputs are invalid')
           return;
     }
-    this.http.registerUser(this.registerform.value).subscribe((response) => {
+    this.authHttpService.registerUser(this.registerform.value).subscribe((response) => {
                                                   console.log(response);
                                                   this.router.navigate(['/login']);
                                                 });

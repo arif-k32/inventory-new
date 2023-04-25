@@ -11,7 +11,7 @@ import { TokenstorageService } from 'src/app/Shared/Services/tokenstorage.servic
 export class LoginComponent {
   constructor(
     private readonly router: Router,
-    private readonly http: AuthHttpService,
+    private readonly authHttpService: AuthHttpService,
     private readonly tokenStorage: TokenstorageService
   ) {}
 
@@ -25,7 +25,7 @@ export class LoginComponent {
   }
 
   public login() {
-    this.http.login(this.loginform.value).subscribe((response: any) => {
+    this.authHttpService.login(this.loginform.value).subscribe((response: any) => {
                                         this.tokenStorage.accessToken = response.access_token;
                                         localStorage.setItem('access_token',JSON.stringify(response.access_token));
       this.router.navigate(['/dashboard']);

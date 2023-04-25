@@ -2,11 +2,11 @@ import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductsHttpSerice } from '@api/Products/products-http.service';
-import { IProduct } from '@interfaces/products/products.interface';
+import { IProduct, ImportProductsResponse } from '@interfaces/products/products.interface';
 import { AddDataResponseService } from '@services/add-data-response.service';
 import { Toastr } from '@services/toastr.service';
-import { Observable, Subscription, map } from 'rxjs';
 import * as Papa from 'papaparse';
+import { Observable, Subscription, map } from 'rxjs';
 
 
 @Component({
@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit{
   public addProduct = false;
 
   constructor(
-          private readonly http: ProductsHttpSerice,
+          private readonly productsHttpService: ProductsHttpSerice,
           private readonly toastr: Toastr,
           private readonly addProductSubject: AddDataResponseService,
   ) {}
@@ -106,12 +106,12 @@ export class ProductsComponent implements OnInit{
         if ((checkbox.target as HTMLInputElement).checked == true) {
               this.productsForm.controls[product.id].get('price')?.enable();
               this.productsForm.controls[product.id].get('stock')?.enable();
-              this.http.updateProductActive(product.id, true).subscribe();
+              this.productsHttpService.updateProductActive(product.id, true).subscribe();
         }
         else {
             this.productsForm.controls[product.id].get('price')?.disable();
             this.productsForm.controls[product.id].get('stock')?.disable();
-            this.http.updateProductActive(product.id, false).subscribe();
+            this.productsHttpService.updateProductActive(product.id, false).subscribe();
     }
   }
 
@@ -123,7 +123,7 @@ export class ProductsComponent implements OnInit{
   }
 
   public delete(id: number):void {
-        this.http.deleteProduct(id).subscribe(() => {
+        this.productsHttpService.deleteProduct(id).subscribe(() => {
                                       this.toastr.showtoast('success', 'deleted');
                                       this.getdata();
                                     });
@@ -135,7 +135,7 @@ export class ProductsComponent implements OnInit{
   }
 
   private getdata():void {    /// retrieves products from server
-    this.productsObservable$ = this.http.getProducts().pipe( map((products: any) => {
+    this.productsObservable$ = this.productsHttpService.getProducts().pipe( map((products: any) => {
                                                             return this.checkfilters(products);
                                                           })
                                                         );
@@ -180,7 +180,7 @@ export class ProductsComponent implements OnInit{
                                 stock: this.productsForm.controls[product.id].value.stock,
                               };
 
-        this.http.updateProduct( updatedProduct).subscribe(() => {
+        this.productsHttpService.updateProduct( updatedProduct).subscribe(() => {
                                                               this.toastr.showtoast('success', 'update success');
                                                               this.getdata();
                                                             });
@@ -207,10 +207,10 @@ export class ProductsComponent implements OnInit{
       return true;
   }
   public importFiles(event:any):void{
-    let file= event.target.files[0];
-    let fileToUpload:FormData = new FormData();
+    const file= event.target.files[0];
+    const fileToUpload:FormData = new FormData();
     fileToUpload.append('csv', file, file.name)
-    this.http.importProducts(fileToUpload).subscribe((response:boolean)=>{
+    this.productsHttpService.importProducts(fileToUpload).subscribe((response:ImportProductsResponse)=>{
                                                       if(response){
                                                           this.toastr.showtoast('success','file uploaded successfully');
                                                           this.getdata();
@@ -218,7 +218,7 @@ export class ProductsComponent implements OnInit{
                                                     })
  }
  public exportFiles():void{
-    this.http.getProducts().subscribe((response:IProduct[])=>{
+    this.productsHttpService.getProducts().subscribe((response:IProduct[])=>{
                                     const csv = Papa.unparse(response);
                                     const blob = new Blob([csv], {type:'text/csv'});
                                     const url = window.URL.createObjectURL(blob);

@@ -38,7 +38,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   public productsList: IProduct[] = [];
 
   constructor(
-        private readonly http: SalesHttpService,
+        private readonly salesHttpService: SalesHttpService,
         private readonly productsHttp:ProductsHttpSerice,
         private readonly clientsHttp:ClientsHttpService,
         private readonly toastr: Toastr,
@@ -116,7 +116,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
           }
     }
     else
-        this.http.createSale(this.salesForm.value).subscribe((respo) => {
+        this.salesHttpService.createSale(this.salesForm.value).subscribe((respo) => {
                                                       this.toastr.showtoast('success', 'New sale added');
                                                       this.salesForm.reset();
                                                       this.router.navigate(['dashboard/sales']);
@@ -180,7 +180,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
               this.salesForm.reset();
               this.selectedClient=null;
               this.selectedProducts.clear();
-              this.http.getQuickSaleById(Number(params['quick_sale'])).subscribe((quickSale:any)=>{
+              this.salesHttpService.getQuickSaleById(Number(params['quick_sale'])).subscribe((quickSale:any)=>{
                                                                           for(let product of quickSale.products){
                                                                                 this.addProduct(product,'1')
                                                                               }

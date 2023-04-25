@@ -18,7 +18,7 @@ export class QuicksaleComponent {
   public pageSize=5;
 
 
-  constructor(private readonly http:SalesHttpService, private readonly router:Router,private readonly toastr:Toastr){}
+  constructor(private readonly salesHttpService:SalesHttpService, private readonly router:Router,private readonly toastr:Toastr){}
 
   public pagination(updatedPagination: { currentPage: number; pageSize: number }) {
         this.currentPage = updatedPagination.currentPage;
@@ -27,7 +27,7 @@ export class QuicksaleComponent {
   }
 
   public getQuickSales():void{
-        this.quickSales$= this.http.getAllQuickSales();
+        this.quickSales$= this.salesHttpService.getAllQuickSales();
         this.quickSales$.subscribe((sales:IQuickSale[])=>{
                                         this.numberOfSales = sales.length;
                                         this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
@@ -43,7 +43,7 @@ export class QuicksaleComponent {
   }
 
   public deleteQuickSale(sale_id:number):void{
-      this.http.deleteQuickSale(sale_id).subscribe(()=>{
+      this.salesHttpService.deleteQuickSale(sale_id).subscribe(()=>{
                                                     this.toastr.showtoast('success','quick sale deleted');
                                                     this.getQuickSales();
                                             })

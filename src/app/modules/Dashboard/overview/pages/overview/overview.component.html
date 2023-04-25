@@ -1,4 +1,4 @@
-<div style="overflow-x: scroll;" >
+<div  class="overflow-x-scroll" >
         <div class="grid grid-cols-3 gap-4 m-4">
                 <div class="w-full h-[12rem] rounded-2xl border bg-gray-100 bg-opacity-75 p-2">
                         <a routerLink="../sales/quick-sales" class="px-1 py-1 bg-yellow-300 rounded">Quick Sales</a>
@@ -9,7 +9,7 @@
                 <div class="w-full h-[12rem] rounded-2xl border bg-gray-100 bg-opacity-75"></div>
         </div>
 
-        <div class="flex flex-row flex-wrap overflow-y-scroll" *ngIf="quickSales" style="height: 40rem;">
+        <div class="flex flex-row flex-wrap overflow-y-scroll h-96" *ngIf="quickSales" >
                 <div *ngFor="let sale of quickSales" class="px-2 py-2 h-[12rem] w-[24rem] m-2 rounded-2xl border bg-blue-300 bg-opacity-90">
 
                         <div class="flex flex-row justify-between bg-blue-500 p-2 rounded">
@@ -17,7 +17,7 @@
                           <button (click)="goToQuickSale(sale.id)" class="bg-gray-100 px-2 py-1 mr-2 rounded">add</button>
                         </div>
                         
-                        <div class="flex " style="flex-direction: column;">
+                        <div class="flex flex-col"  >
                                 <table>
                                        
                                         <tbody>

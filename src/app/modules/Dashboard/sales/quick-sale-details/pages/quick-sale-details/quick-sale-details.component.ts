@@ -10,12 +10,12 @@ import { IQuickSale } from '@interfaces/sales/sales.interface';
 export class DetailsComponent {
   public sales!:IQuickSale;
 
-  constructor( private readonly route: ActivatedRoute, private readonly http: SalesHttpService) {}
+  constructor( private readonly route: ActivatedRoute, private readonly salesHttpService: SalesHttpService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
                                   const sale_id = Number(params.get('id'));
-                                  this.http.getQuickSaleById(sale_id).subscribe(sale=>this.sales=sale)
+                                  this.salesHttpService.getQuickSaleById(sale_id).subscribe(sale=>this.sales=sale)
                                 });
   }
 }

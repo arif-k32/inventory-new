@@ -1,37 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
+import { IProduct, ImportProductsResponse } from 'src/app/Shared/Interfaces/products/products.interface';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsHttpSerice {
-  private url: string = 'https://api-sales-app.josetovar.dev';
-  constructor(private http: HttpClient) {}
+ 
+  constructor(private httpClient: HttpClient) {}
   
   public getSingleProduct(id: number) {
-      return this.http.get(`${this.url}/products/${id}`);
+      return this.httpClient.get(`${environment.api}/products/${id}`);
   }
 
   public deleteProduct(id: number) {
-      return this.http.delete(`${this.url}/products/${id}`);
+      return this.httpClient.delete(`${environment.api}/products/${id}`);
   }
   
   public updateProduct(details: IProduct) {
-      return this.http.put(`${this.url}/products`, details);
+      return this.httpClient.put(`${environment.api}/products`, details);
   }
   public getProducts():Observable<IProduct[]> {
-      return this.http.get<IProduct[]>(`${this.url}/products`);
+      return this.httpClient.get<IProduct[]>(`${environment.api}/products`);
   }
-  public updateProductActive(id: number, state: boolean) {
-      return this.http.put(`${this.url}/products/status/${id}?status=${state}`, {});
+  public updateProductActive(id: number, status: boolean) {
+      return this.httpClient.put(`${environment.api}/products/status/${id}`, {},{params:{status}});
   }
   public createProduct(product: IProduct) {
-      return this.http.post(`${this.url}/products`, product);
+      return this.httpClient.post(`${environment.api}/products`, product);
   }
-  importProducts(file:FormData):Observable<boolean>{
-    return this.http.post<boolean>(`${this.url}/products/import`,file).pipe(map( ()=>{return true;}));
+  importProducts(file:FormData):Observable<ImportProductsResponse>{
+    return this.httpClient.post<ImportProductsResponse>(`${environment.api}/products/import`,file);
   }
 
   

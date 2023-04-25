@@ -12,11 +12,11 @@ export class SaleComponent implements OnInit {
 
   public sales!:any;
 
-  constructor( private readonly route: ActivatedRoute, private readonly http: SalesHttpService, private readonly productsHttp:ProductsHttpSerice) {}
+  constructor( private readonly route: ActivatedRoute, private readonly salesHttpService: SalesHttpService, private readonly productsHttpService:ProductsHttpSerice) {}
  
   public addProductName(sale:any){
         for(let item of  sale.items){
-              this.productsHttp.getSingleProduct(item.product_id).subscribe((product:any)=>{
+              this.productsHttpService.getSingleProduct(item.product_id).subscribe((product:any)=>{
                                                                         item.product_name=product.name
                                                                     })
         }
@@ -26,7 +26,7 @@ export class SaleComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
                                   const sale_id = Number(params.get('id'));
-                                  this.http.getSaleById(sale_id).subscribe((sale:any)=> {this.addProductName(sale)} )
+                                  this.salesHttpService.getSaleById(sale_id).subscribe((sale:any)=> {this.addProductName(sale)} )
                                 });
   }
 }

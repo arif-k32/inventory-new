@@ -1,19 +1,12 @@
-<div  style="min-height: 900px;display: flex;flex-direction: column;" >
+<div   class="flex flex-col">
   
   
-  <div style="display: flex; flex-direction: row;border-top: 1px solid black;height: 100%;">
+  <div  class="flex flex-row border-t border-black h-full">
     <!-- ///////////////////////////left part ///////////////////////////////////////// -->
-    <div
-      style="
-        border-right: 1px solid black;
-        width: 40%;
-        min-height: 1080px;
-        background-color: rgba(182, 221, 230, 0.669);
-        padding-top: 0.5em;
-      "
+    <div  class="border-r border-black bg-gray-400 bg-opacity-60 pt-6 w-1/2 h-screen"
       
       >
-     <div style="display: flex;flex-direction: row; justify-content: space-around;">
+     <div  class="flex flex-row justify-around">
         <form>
         <div
         class="flex rounded-md shadow-sm mb-3"
@@ -134,10 +127,9 @@
       </table>
     </div>
     <!-- ///////// right part ////////////////////////////////// -->
-    <div style="width: 60%;padding-top: 0.5em;">
+    <div  class="w-1/2 pt-6">
       <div
-        class="bg-blue-300 text-white px-3 py-3 "
-        style="text-align: center"
+        class="bg-blue-300 text-white px-3 py-3 text-center"
         *ngIf="selectedClient"
       >
         <p>Client Details</p>
@@ -163,8 +155,7 @@
         </tbody>
       </table>
       <div
-        class="bg-blue-300 text-white px-3 py-3 mt-1"
-        style="text-align: center"
+        class="bg-blue-300 text-white px-3 py-3 mt-1 text-center"
         *ngIf="selectedProducts.controls[0]"
       >
         <p>Orders</p>

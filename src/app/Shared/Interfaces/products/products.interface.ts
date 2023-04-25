@@ -6,3 +6,8 @@ export interface IProduct {
     sku:string,
     stock:number,
 }
+
+export interface ImportProductsResponse{
+    "Skipped Products":number;
+    "Imported Products":number
+}

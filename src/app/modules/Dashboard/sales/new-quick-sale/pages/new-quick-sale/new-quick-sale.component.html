@@ -1,20 +1,15 @@
-<div  style="min-height: 900px;display: flex;flex-direction: column;" >
+<div   class="flex flex-col">
   
   
-    <div style="display: flex; flex-direction: row;border-top: 1px solid black;height: 100%;">
+    <div   class="flex flex-row border-t border-black h-full">
       <!-- ///////////////////////////left part ///////////////////////////////////////// -->
                      <!-- .......... add quick sale name .................. -->
       <div
-        style="
-          border-right: 1px solid black;
-          width: 50%;
-          min-height: 1080px;
-          background-color: rgba(182, 221, 230, 0.669);
-          padding-top: 0.5em;
-        "
+        
+        class="border-r border-black w-1/2 bg-gray-400 bg-opacity-60 h-screen pt-6"
         
         >
-       <div style="display: flex;flex-direction: column; justify-content: space-around;align-items: center;">
+       <div  class="flex flex-col justify-around items-center">
           
           <div class="flex rounded-md shadow-sm mb-3" >
           
@@ -94,12 +89,11 @@
         </table>
       </div>
       <!-- ///////// right part ////////////////////////////////// -->
-      <div style="width: 50%;padding-top: 0.5em;">
+      <div  class="w-1/2 pt-6">
     
                 <div
                     *ngIf="quickSaleForm.controls['name'].value"
-                    class="bg-blue-300 text-white px-3 py-3 "
-                    style="text-align: center"
+                    class="bg-blue-300 text-white px-3 py-3 text-center"
                             >
                             <p>Name</p>
                 </div>
@@ -117,8 +111,7 @@
                 <!-- //////////////// products ///////////// -->
               
         <div
-          class="bg-blue-300 text-white px-3 py-3 mt-1"
-          style="text-align: center"
+          class="bg-blue-300 text-white px-3 py-3 mt-1 text-center"
           *ngIf="selectedProducts.controls[0]"
         >
           <p>Products</p>

@@ -20,7 +20,7 @@ export class AddnewclientComponent {
                                   email: new FormControl('', Validators.required),
                                 });
   constructor(
-          private readonly http: ClientsHttpService,
+          private readonly clientsHttpService: ClientsHttpService,
           private readonly addClientSubject: AddDataResponseService,
           private readonly route:ActivatedRoute,
           private readonly router:Router
@@ -28,7 +28,7 @@ export class AddnewclientComponent {
 
   public addClient():void {
           if (this.newClientForm.valid) {
-                  this.http.registerClient(this.newClientForm.value).subscribe((resp: any) => {
+                  this.clientsHttpService.registerClient(this.newClientForm.value).subscribe((resp: any) => {
                                                                         this.newClientForm.reset();
                                                                         this.addClientSubject.onAddClient('success');
                                                                       });

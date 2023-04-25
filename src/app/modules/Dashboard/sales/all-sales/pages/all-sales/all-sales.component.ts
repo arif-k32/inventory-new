@@ -18,7 +18,7 @@ export class AllsalesComponent implements OnInit {
 
   
 
-  constructor(private readonly http:SalesHttpService){}
+  constructor(private readonly salesHttpService:SalesHttpService){}
 
   public pagination(updatedPagination: { currentPage: number; pageSize: number }):void {
                 this.currentPage = updatedPagination.currentPage;
@@ -27,7 +27,7 @@ export class AllsalesComponent implements OnInit {
   }
   
   public getSales():void{
-    this.sales$= this.http.getAllSales();
+    this.sales$= this.salesHttpService.getAllSales();
     this.sales$.subscribe((sales:ISale[])=>{
                                     this.numberOfSales = sales.length;
                                     this.numberOfPages = Math.ceil(this.numberOfSales / this.pageSize);
