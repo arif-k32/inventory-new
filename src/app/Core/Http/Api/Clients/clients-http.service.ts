@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IClient } from 'src/app/Shared/Interfaces/clients/clients.interface';
 
 @Injectable({
@@ -22,6 +22,9 @@ export class ClientsHttpService {
   }
   deleteClient(clientId: number) {
       return this.http.delete(`${this.url}/clients/${clientId}`);
+  }
+  imoportClients(file:FormData):Observable<boolean>{
+    return this.http.post<boolean>(`${this.url}/clients/import`,file).pipe(map( ()=>{return true;}));
   }
 
 }

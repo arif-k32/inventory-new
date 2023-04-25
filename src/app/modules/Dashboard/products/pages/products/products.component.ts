@@ -6,6 +6,8 @@ import { IProduct } from '@interfaces/products/products.interface';
 import { AddDataResponseService } from '@services/add-data-response.service';
 import { Toastr } from '@services/toastr.service';
 import { Observable, Subscription, map } from 'rxjs';
+import * as Papa from 'papaparse';
+
 
 @Component({
   selector: 'app-products',
@@ -31,14 +33,14 @@ export class ProductsComponent implements OnInit{
                                   (products: IProduct[]):IProduct[] => {   ///filter by stock
                                     let filteredProducts: IProduct[] = [];
                                     if (this.filters_stock)
-                                      if (this.filters_stock == '0')
-                                        filteredProducts = products.filter(
-                                          (product: IProduct) => product.stock == 0
-                                        );
-                                      else
-                                        filteredProducts = products.filter(
-                                          (product: IProduct) => product.stock > 0
-                                        );
+                                          if (this.filters_stock == '0')
+                                            filteredProducts = products.filter(
+                                              (product: IProduct) => product.stock == 0
+                                            );
+                                          else
+                                            filteredProducts = products.filter(
+                                              (product: IProduct) => product.stock > 0
+                                            );
                                     else filteredProducts = products;
                                     return filteredProducts;
                                   },
@@ -204,6 +206,32 @@ export class ProductsComponent implements OnInit{
                return false;
       return true;
   }
+  public importFiles(event:any):void{
+    let file= event.target.files[0];
+    let fileToUpload:FormData = new FormData();
+    fileToUpload.append('csv', file, file.name)
+    this.http.importProducts(fileToUpload).subscribe((response:boolean)=>{
+                                                      if(response){
+                                                          this.toastr.showtoast('success','file uploaded successfully');
+                                                          this.getdata();
+                                                      }
+                                                    })
+ }
+ public exportFiles():void{
+    this.http.getProducts().subscribe((response:IProduct[])=>{
+                                    const csv = Papa.unparse(response);
+                                    const blob = new Blob([csv], {type:'text/csv'});
+                                    const url = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.setAttribute('hidden','');
+                                    a.setAttribute('href',url);
+                                    a.setAttribute('download','products.csv');
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    document.body.removeChild(a);
+                                    window.URL.revokeObjectURL(url);
+                                })
+ }
   
   
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IProduct } from 'src/app/Shared/Interfaces/products/products.interface';
 
 @Injectable({
@@ -29,6 +29,9 @@ export class ProductsHttpSerice {
   }
   public createProduct(product: IProduct) {
       return this.http.post(`${this.url}/products`, product);
+  }
+  importProducts(file:FormData):Observable<boolean>{
+    return this.http.post<boolean>(`${this.url}/products/import`,file).pipe(map( ()=>{return true;}));
   }
 
   

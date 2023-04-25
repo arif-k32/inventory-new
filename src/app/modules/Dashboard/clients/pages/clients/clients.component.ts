@@ -6,6 +6,7 @@ import { IClient } from '@interfaces/clients/clients.interface';
 import { AddDataResponseService } from '@services/add-data-response.service';
 import { Toastr } from '@services/toastr.service';
 import { Observable, Subscription } from 'rxjs';
+import * as Papa from 'papaparse';
 
 @Component({
   selector: 'app-clients',
@@ -19,8 +20,8 @@ export class ClientsComponent implements OnInit {
   public numberOfClients!: number;
   public pageSize = 5;
 
-  editMode = false;
-  updateClientForm = new FormGroup({
+  public editMode = false;
+  public updateClientForm = new FormGroup({
                                     id:         new FormControl(0),
                                     first_name: new FormControl('', Validators.required),
                                     last_name:  new FormControl('', Validators.required),
@@ -33,7 +34,7 @@ export class ClientsComponent implements OnInit {
                                     created_at: new FormControl('', Validators.required),
                                     updated_at: new FormControl('', Validators.required)
                                   });
-  addClient = false;
+  public addClient = false;
 
   constructor(
             private readonly http: ClientsHttpService,
@@ -106,8 +107,31 @@ export class ClientsComponent implements OnInit {
                       });
   }
 
-  public importFiles(file:Event):void{
-      console.log((file.target as HTMLInputElement ).files)
+  public importFiles(event:any):void{
+      let file= event.target.files[0];
+      let fileToUpload:FormData = new FormData();
+      fileToUpload.append('csv', file, file.name)
+      this.http.imoportClients(fileToUpload).subscribe((response:boolean)=>{
+                                                        if(response){   
+                                                            this.toastr.showtoast('success','file uploaded successfully');
+                                                            this.getClients();
+                                                        }
+                                                      })
+  }
+  public exportFiles():void{
+      this.http.getAllClients().subscribe((response:IClient[])=>{
+                                                      const csv = Papa.unparse(response);
+                                                      const blob = new Blob([csv], {type:'text/csv'});
+                                                      const url = window.URL.createObjectURL(blob);
+                                                      const a = document.createElement('a');
+                                                      a.setAttribute('hidden','');
+                                                      a.setAttribute('href',url);
+                                                      a.setAttribute('download','clients.csv');
+                                                      document.body.appendChild(a);
+                                                      a.click();
+                                                      document.body.removeChild(a);
+                                                      window.URL.revokeObjectURL(url);
+                                                })
   }
   
 
